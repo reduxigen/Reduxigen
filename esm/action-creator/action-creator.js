@@ -6,13 +6,22 @@ export const reducers = {
   [REDUX_INIT]: state => state
 };
 
+let _externalReducers = [];
+
 export const rootReducer = defaultState => (state = defaultState, action) => {
   const { type, payload } = action;
-  if (reducers.hasOwnProperty(type)) {
+  const foundReducer = _externalReducers.some(reducer => state !== reducer(state, action));
+  if (foundReducer) {
+    return foundReducer;
+  } else if (reducers.hasOwnProperty(type)) {
     return reducers[type](state, payload);
   } else {
     throw new Error("Reducer not found");
   }
+};
+
+export const addReducers = reducer => {
+  _externalReducers = _externalReducers.concat(reducer);
 };
 
 /**
@@ -76,15 +85,15 @@ export const action = (field, func) => input => {
  * @return {function(*, *)}
  */
 export const genericAction = (name, func) => field => payload => {
-    const type = createActionName(field, name.toUpperCase());
-    if (!reducers.hasOwnProperty(type)) {
-      reducers[type] = applyAction(field, func);
-    }
-    return {
-      type,
-      payload
-    };
+  const type = createActionName(field, name.toUpperCase());
+  if (!reducers.hasOwnProperty(type)) {
+    reducers[type] = applyAction(field, func);
+  }
+  return {
+    type,
+    payload
   };
+};
 
 /**
  * Like an action, but asynchronous
@@ -114,7 +123,7 @@ export const asyncAction = (field, func, asyncOp, fetchMethod) => query => dispa
  * @return {function(*, *=): Object}
  */
 function applyAction(field, func) {
-  return (state, value) => set({...state}, field, func(value));
+  return (state, value) => set({ ...state }, field, func(value));
 }
 
 /**
@@ -123,9 +132,7 @@ function applyAction(field, func) {
  * @return {*}
  */
 function getPayload(payload) {
-  return isEventObject(payload)
-    ? payload.target.value
-    : payload;
+  return isEventObject(payload) ? payload.target.value : payload;
 }
 
 /**

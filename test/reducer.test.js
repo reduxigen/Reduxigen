@@ -1,4 +1,4 @@
-import { rootReducer as reducerInit, reducers } from "../esm/action-creator/action-creator";
+import { rootReducer as reducerInit, reducers, addReducers } from "../esm/action-creator/action-creator";
 
 describe("reducers", () => {
   let rootReducer;
@@ -19,5 +19,23 @@ describe("reducers", () => {
 
   it("should throw is passed an invalid genericAction", () => {
     expect(() => rootReducer({}, { type: "SET_TEST", payload: "test" })).toThrow();
+  });
+
+  it("should be able to integrate external reducers", () => {
+    const expected = 1;
+    const mock = jest.fn();
+    const mockReducer = (state, action) => {
+      switch (action.type) {
+        case "ADD_TEST":
+          mock();
+          return { ...state, test: 1 };
+        default:
+          return state;
+      }
+    };
+    addReducers([mockReducer]);
+    rootReducer({test: 0}, { type: "ADD_TEST", payload: "test" });
+    const actual = mock.mock.calls.length;
+    expect(actual).toEqual(expected);
   });
 });
