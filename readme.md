@@ -507,7 +507,7 @@ export default connect([{todos: getVisibleTodos}])(sampleComponent);
 
 # Central Reducer
 
-Reduxigen uses an object-based reducer. Using an object-based reducer instead of a `switch` based reducer allows reducers to be dynamically added. It has been noted that this type of reducer doesn't allow for case fallthrough (same state update for multiple actions). You can achieve the same end in Reduxigen by creating an `action`, which can be used with multiple state updates---or, because `update`s are independent actions, just reuse an `update`.
+Reduxigen uses an object-based reducer. Using an object-based reducer instead of a `switch` based reducer allows reducers to be dynamically added. It has been noted that this type of reducer doesn't allow for case fallthrough (same state update for multiple actions). You can achieve the same end in Reduxigen by creating a `genericAction`, which can be used with multiple state updates---or, because `update`s are independent actions, just reuse an `update`.
 
 This is what Reduxigen's object-based reducer looks like:
 
