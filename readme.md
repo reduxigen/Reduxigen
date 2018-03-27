@@ -32,17 +32,13 @@ To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https:/
 
 ## Summary
 
-Reduxigen is a thin wrapper around `redux`, `react-redux`, `redux-thunk`, and an application's `reducer`. When using Reduxigen, you will rarely need to write a `reducer`, or `thunk`.
+Reduxigen is a set of utilities: `actions` and `connect`. 
 
-Working with state using Reduxigen involves three concepts:
+Reduxigen `actions` simplify the process of updating Redux state. They eliminate the need to write all the boilerplate of reducers and action-creators. 
 
-* **Store**: A standard Redux store.
-* **Actions**: Reduxigen exposes several `action` types that update the store.
-* **View**: Reduxigen exposes a `connect` method that simplifies connecting state and methods to props.
+Reduxigen `connect` simplifies connecting state and methods to props when using `react-redux`.
 
-The workhorse of Reduxigen is the `action`. When you create an `action`, Reduxigen manages the reducer and action-creator for that `action`.
-
-If you're not using React, but you are using Redux, you can still use Reduxigen. You can load only the files you need. There are two distribution files: `actions`, and `connect`. `actions` contains Reduxigen's `central-reducer` and all `action` methods. `connect` contains the simplified `react-redux` `connect` method.
+Each utility is its own file (`actions` and `connect`, respectively). You can load only the files you need. `actions` contains Reduxigen's `central-reducer` and all `action` methods. `connect` contains the simplified `react-redux` `connect` method.
 
 ## Setup
 
