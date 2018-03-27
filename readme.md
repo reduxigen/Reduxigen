@@ -1,6 +1,6 @@
 
 
-Reduxigen
+![logo](https://raw.githubusercontent.com/joe-crick/Reduxigen/master/reduxigen-logo.png) Reduxigen
 =======
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/joe-crick/Reduxigen.svg)](https://greenkeeper.io/)
