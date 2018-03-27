@@ -489,6 +489,7 @@ export const getVisibleTodos = createSelector(
 ```
 
 **The Connector**
+
 To pass a function to `connect` add an object with one field to the array. The field name on the object will map to the field name in `props`.
 
 ```js
