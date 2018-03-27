@@ -1,0 +1,6 @@
+.idea
+node_modules
+yarn-error.log
+actions.js
+connect.js
+index.js

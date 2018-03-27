@@ -1,0 +1,11 @@
+node_modules
+esm
+test
+.travis.yml
+.gitignore
+.babelrc
+.prettierrc
+jest.config.js
+package.json
+yarn-error.log
+yarn.lock
