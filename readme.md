@@ -99,7 +99,6 @@ Given the following component:
 
 ```js
 // file name: test.jsx
-
 import React from 'react';
 
 const Test = ({test}) => <button>{test}</button>;
@@ -112,7 +111,6 @@ All you need to do to update the `redux` store from your component is create an 
 
 ```js
 // file name: test-actions.js
-
 import { update } from 'reduxigen/actions';
 
 // Note that the value "test" corresponds to the "test" field in the state object.
