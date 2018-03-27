@@ -70,7 +70,7 @@ Getting up and running with Reduxigen is easy.
 
 ### Configure
 
-1. Create your default state:
+1. Create a default state:
 
 ```js
 export default {
@@ -79,7 +79,7 @@ export default {
 
 ```
 
-2. Create your store:
+2. Create a store:
 
 ```js
 import { createStore, applyMiddleware } from "redux";
