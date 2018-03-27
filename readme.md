@@ -24,9 +24,6 @@ To see an example of Reduxigen in action, you can view this [example repository]
 - [Setup](#setup)
 - [Configure](#configure)
 - [API](#api)
-- [Connect](#connect)
-- [Central Reducer](#central-reducer)
-    - [Custom Reducers](#custom-reducers)
 - [Other Options](#other-options)
 
 <!-- /TOC -->
