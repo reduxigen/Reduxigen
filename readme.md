@@ -11,19 +11,15 @@ Reduxigen
 
 Reduxigen - Making Redux simpler.
 
-_NOTE_: Reduxigen is in _alpha_. It is not complete, nor production ready. There are several libraries out there that are somewhat similar. In contrast to Reduxigen, which sits on top of Redux (and React-Redux), these libs offer a redux-like approach to state management. They are all their own state containers (i.e., they do not use redux). Here are a few:
-* [redux-zero](https://github.com/concretesolutions/redux-zero) 
-* [Repatch](https://github.com/jaystack/repatch)
-* [Socrates](https://github.com/matthewmueller/socrates)
+No one likes writing Redux boilerplate. It’s time consuming, error prone, and boring. Thanks to Reduxigen, you don’t have to any more!
 
-Then, there's Rematch which, like Reduxigen, is a wrapper around Redux:
-* [Rematch](https://github.com/rematch/rematch)
+At its core, Reduxigen involves three concepts:
 
-I think it's nice to have choices.
+* Store
+* Actions
+* View
 
-To see an example of Reduxigen in action, you can view this [test repository](https://github.com/joe-crick/book-my-hooptie)
-
-Finally, the footprint. Right now, when compressed, Reduxigen weighs in at ~7.2 kb.
+To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/book-my-hooptie)
 
 ## TOC
 
@@ -44,7 +40,7 @@ Finally, the footprint. Right now, when compressed, Reduxigen weighs in at ~7.2 
 
 "[Redux] is hard... Integrating React and Redux is going to make [your] architecture more complicated." - [Brian Holt](https://github.com/btholt)
 
-Redux is a great state management system. There's a reason why it's the go to state management system. But, Redux is complex.
+Redux is a great state management system. There's a reason why it's the go to for React apps. But, Redux is complex.
 
 State management shouldn't be complex.
 
@@ -52,9 +48,9 @@ It's not just that writing all the Redux boilerplate is time consuming, and mind
 
 The goal of Reduxigen is to change all that.
 
-Reduxigen is a thin wrapper around `redux`, `react-redux`, `redux-thunk`, `redux-observable`, and an application's `reducer`. When using Reduxigen, you will rarely need to write a `reducer`, `thunk`, or an `observable`. Instead, Reduxigen exposes a set of `actions`. When you create an `action`, Reduxigen automatically creates the reducer for that `action`.
+Reduxigen is a thin wrapper around `redux`, `react-redux`, `redux-thunk`, and an application's `reducer`. When using Reduxigen, you will rarely need to write a `reducer`, or `thunk`. Instead, Reduxigen exposes a set of `actions`. When you create an `action`, Reduxigen automatically creates the reducer for that `action`.
 
-If you're not using React, but you are using Redux, you can still use Reduxigen. You can load just the files you need. There are three distribution files: `actions`, `connect`, and `index`. `actions` contains the reducer and all action methods. `connect` contains the `react-redux` connection method. `index` contains it all.
+If you're not using React, but you are using Redux, you can still use Reduxigen. You can load only the files you need. There are two distribution files: `actions`, and `connect`. `actions` contains the reducer and all action methods. `connect` contains the `react-redux` connection method.
 
 ## Setup
 
@@ -66,10 +62,12 @@ If you don't have `react` and `redux` already installed, then you'll need to ins
 npm i react react-dom redux react-redux
 ```
 
-If your app is already configured to work with `react` and `redux`, all you have to do is install Reduxigen. It's not published to npm at the moment (it may be later), so if you want to play with it for now, you must install it from github.
+If you need to have async updates in your app, also install `redux-thunk`.
+
+If your app is already configured to work with `react` and `redux`, all you have to do is install Reduxigen. It's not published to npm at the moment (it may be later), so if you want to try it, for now, you must install it from github.
 
 ```js
-npm i https://github.com/joe-crick/simple-r.git
+npm i https://github.com/joe-crick/Reduxigen.git
 ```
 
 ## Configure
@@ -95,7 +93,7 @@ export default {
 
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk"; // If you're using thunks
-import { rootReducer } from "Reduxigen/actions";
+import { rootReducer } from "reduxigen/actions";
 import DEFAULT from "state"; // Wherever your default state is
 
 export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
@@ -123,7 +121,7 @@ All you need to do to update the `redux` store from your component is create an 
 ```js
 // file name: test-actions.js
 
-import { update } from 'Reduxigen/actions';
+import { update } from 'reduxigen/actions';
 
 // Note that the value "test" corresponds to the "test" field in the state object.
 export const setTest = update("test");
@@ -138,7 +136,7 @@ Import this action into your component, and connect it to `redux`, using Reduxig
 
 import React from 'react';
 import * as actions from './test-actions';
-import connect from "Reduxigen/connect";
+import connect from "reduxigen/connect";
 
 export const Test = ({test, setTest}) => <button onClick={setTest}>{test}</button>;
 
@@ -195,7 +193,7 @@ export default {
 ```
 
 ```js
-import { update } from "Reduxigen/actions";
+import { update } from "reduxigen/actions";
 
 export const setPickup = update("pickup");
 export const setNested = update("nested.value");
@@ -267,7 +265,7 @@ export default {
 ```
 
 ```js
-import { asnycUpdate } from "Reduxigen/actions";
+import { asnycUpdate } from "reduxigen/actions";
 import axios from "axios";
 
 export const fetchCars = asyncUpdate("cars",  query => axios.get("http://cars.com/cars", query));
@@ -332,7 +330,7 @@ export default {
 ```
 
 ```js
-import { action } from "Reduxigen/actions";
+import { action } from "reduxigen/actions";
 
 export const setPickup = action("pickup", value => `${value}_woop!`);
 ```
@@ -381,7 +379,7 @@ export default {
 ```
 
 ```js
-import { genericAction } from "Reduxigen/actions";
+import { genericAction } from "reduxigen/actions";
 
 const increment = genericAction("increment", value => value + 1);
 
@@ -423,7 +421,7 @@ The `asyncOp` can be any async function, e.g., a call to `fetch`, or `axios`, or
 #### Example
 
 ```jsx
-import { asnycAction } from "Reduxigen/actions";
+import { asnycAction } from "reduxigen/actions";
 import axios from "axios";
 
 export const updateDropoff = asyncAction(
@@ -466,8 +464,8 @@ Each reducer `type` is a property on the object. The `reducer` function simply c
 While Reduxigen dynamically creates your reducers for you, if you encounter a situation that Reduxigen can't support, no problem. You can still implement what you need to do the long way, and wire it up to Reduxigen's reducer. Here's an example of manually creating a reducer:
 
 ```js
-// file name: without-Reduxigen.js
-import { reducers } from 'Reduxigen/actions';
+// file name: without-reduxigen.js
+import { reducers } from 'reduxigen/actions';
 
 reducers.MY_ACTION = (var1, var2) => { // my code }
 ```
@@ -478,7 +476,7 @@ Wiring up props and actions to a react component is a pain. Reduxigen's `connect
 
 ```js
 import * as actions from "./booking-actions";
-import connect from "Reduxigen/connect";
+import connect from "reduxigen/connect";
 
 // Your component here.
 
@@ -565,3 +563,12 @@ const sampleComponent = ({todos}) => (
 export default connect([{todos: getVisibleTodos}])(sampleComponent);
 
 ```
+
+### Other Options
+There are several libraries out there that work to simplify Redux. In contrast to Reduxigen, which sits on top of Redux (and React-Redux), these libs offer a redux-like approach to state management. They are all their own state containers (i.e., they do not use redux).
+* [redux-zero](https://github.com/concretesolutions/redux-zero)
+* [Repatch](https://github.com/jaystack/repatch)
+* [Socrates](https://github.com/matthewmueller/socrates)
+
+Then, there's Rematch which, like Reduxigen, is a wrapper around Redux:
+* [Rematch](https://github.com/rematch/rematch)
