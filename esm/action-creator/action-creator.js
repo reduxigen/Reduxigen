@@ -8,6 +8,11 @@ export const reducers = {
 
 let _externalReducers = [];
 
+/**
+ * Reduxigen's Central Reducer
+ * @param defaultState
+ * @return {Function}
+ */
 export const rootReducer = defaultState => (state = defaultState, action) => {
   const { type, payload } = action;
   const foundReducer = _externalReducers.some(reducer => state !== reducer(state, action));
@@ -20,6 +25,10 @@ export const rootReducer = defaultState => (state = defaultState, action) => {
   }
 };
 
+/**
+ * Allows external reducers to be combined with Reduxigen's Central Reducer
+ * @param {Array} reducer
+ */
 export const addReducers = reducer => {
   _externalReducers = _externalReducers.concat(reducer);
 };
