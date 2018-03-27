@@ -13,12 +13,6 @@ Reduxigen - Making Redux simpler.
 
 No one likes writing Redux boilerplate. It’s time consuming, error prone, and boring. Thanks to Reduxigen, you don’t have to any more!
 
-At its core, Reduxigen involves three concepts:
-
-* Store
-* Actions
-* View
-
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/book-my-hooptie)
 
 ## TOC
@@ -48,7 +42,15 @@ It's not just that writing all the Redux boilerplate is time consuming, and mind
 
 The goal of Reduxigen is to change all that.
 
-Reduxigen is a thin wrapper around `redux`, `react-redux`, `redux-thunk`, and an application's `reducer`. When using Reduxigen, you will rarely need to write a `reducer`, or `thunk`. Instead, Reduxigen exposes a set of `actions`. When you create an `action`, Reduxigen automatically creates the reducer for that `action`.
+Reduxigen is a thin wrapper around `redux`, `react-redux`, `redux-thunk`, and an application's `reducer`. When using Reduxigen, you will rarely need to write a `reducer`, or `thunk`.
+
+Working with state using Reduxigen involves three concepts:
+
+* Store: A standard Redux store.
+* Actions: Reduxigen exposes several `action` types that update the store.
+* View: Reduxigen exposes a `connect` method that simplifies connecting state and methods to props.
+
+The workhorse of Reduxigen is the `action`. When you create an `action`, Reduxigen manages the reducer and action-creator for that `action`.
 
 If you're not using React, but you are using Redux, you can still use Reduxigen. You can load only the files you need. There are two distribution files: `actions`, and `connect`. `actions` contains the reducer and all action methods. `connect` contains the `react-redux` connection method.
 
@@ -70,9 +72,11 @@ If your app is already configured to work with `react` and `redux`, all you have
 npm i https://github.com/joe-crick/Reduxigen.git
 ```
 
-## Configure
+## Quick Start
 
-Configuring Reduxigen is easy.
+Getting up and running with Reduxigen is easy.
+
+### Configure
 
 1. Create your default state:
 
@@ -94,12 +98,10 @@ export default {
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk"; // If you're using thunks
 import { rootReducer } from "reduxigen/actions";
-import DEFAULT from "state"; // Wherever your default state is
+import DEFAULT from "state";
 
 export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
 ```
-
-That's it. You're ready to go.
 
 ### Create Actions
 
