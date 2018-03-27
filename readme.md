@@ -157,14 +157,16 @@ Reduxigen's `connect` method will map the array of prop names you pass it to `ma
 1. Creates a reducer for updating that field, if one does not exist, using a standard naming scheme based on the field name.
 2. Creates and returns a redux-action.
 
+NOTE: The function returned by `update` accepts a DOM `event` as its default input. It will automatically grab the `target.value` from that `event`. However, you can pass in any value you want to the function. See the example below for more details.
+
+
 #### Arguments
 
 1. `field: string:` The field to update. This value will map to a field name on your state object. Reduxigen uses [`lodash/set`](https://lodash.com/docs/4.17.5#set) under the hood, so it supports any valid lodash setter path string.
 
 #### Returns
 
-`redux-action`: A valid redux action of the form: `{ type, payload }`.
-
+`redux-action`: A valid redux action function with a return value of the form: `{ type, payload }`.
 
 #### Example
 
@@ -185,9 +187,8 @@ import { update } from "reduxigen/actions";
 
 export const setPickup = update("pickup");
 export const setNested = update("nested.value");
+export const argExample = update("number");
 ```
-
-`update` checks to see if its input value is a DOM `event`. If it detects one, it will automatically grab the `target.value` from that `event`.
 
 ```js
 // example use
@@ -204,21 +205,9 @@ export const setNested = update("nested.value");
   value={nested.value}
 />
 
-```
-
-You can also pass in the update value manually:
-
-```js
-// example use
-
-<input
-  name="pickup"
-  onChange={setPickup('my custom update value')}
-  value={pickup}
-/>
+<button onClick={argExample(22)}>Reset number to 22</button>
 
 ```
-
 
 ## asyncUpdate
 ### `asyncUpdate(field: string, asyncOp: async Function [, fetchMethod: string]) => thunk`
@@ -305,7 +294,7 @@ function displayCars({ cars, cars_loading, cars_error }) {
 
 #### Returns
 
-`redux-action`: A redux action of the form: `{ type, payload }`.
+`redux-action`: A redux action function with a return value of the form: `{ type, payload }`.
 
 #### Example
 
