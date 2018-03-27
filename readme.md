@@ -22,7 +22,7 @@ To see an example of Reduxigen in action, you can view this [example repository]
 
 - [Summary](#summary)
 - [Setup](#setup)
-- [Configure](#configure)
+- [Quick Start](#quick-start)
 - [API](#api)
 - [Other Options](#other-options)
 
