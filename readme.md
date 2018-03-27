@@ -16,6 +16,8 @@ No one likes writing Redux boilerplate. It’s time consuming, error prone, and 
 
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/book-my-hooptie)
 
+To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
+
 ## TOC
 
 <!-- TOC -->
