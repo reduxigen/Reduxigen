@@ -1,7 +1,6 @@
 {
-  "name": "simpl-r",
+  "name": "Reduxigen",
   "version": "0.0.1",
-  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "start": "webpack -w",
