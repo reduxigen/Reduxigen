@@ -54,7 +54,7 @@ If you don't have `react` and `redux` already installed, then you'll need to ins
 npm i react react-dom redux react-redux
 ```
 
-If you need to have async updates in your app, also install `redux-thunk`.
+If you need to have async operations in your app, also install `redux-thunk`.
 
 If your app is already configured to work with `react` and `redux`, all you have to do is install Reduxigen. It's not published to npm at the moment (it may be later), so if you want to try it, for now, you must install it from github.
 
