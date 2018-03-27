@@ -19,7 +19,6 @@ To see an example of Reduxigen in action, you can view this [example repository]
 
 <!-- TOC -->
 
-- [TOC](#toc)
 - [Summary](#summary)
 - [Setup](#setup)
 - [Configure](#configure)
