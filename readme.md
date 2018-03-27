@@ -543,10 +543,4 @@ Once you've added the action to the reducer, you can create your action-creator,
 
 
 ## Other Options
-There are several libraries out there that work to simplify Redux. In contrast to Reduxigen, which sits on top of Redux (and React-Redux), these libs offer a redux-like approach to state management. They are all their own state containers (i.e., they do not use redux).
-* [redux-zero](https://github.com/concretesolutions/redux-zero)
-* [Repatch](https://github.com/jaystack/repatch)
-* [Socrates](https://github.com/matthewmueller/socrates)
-
-Then, there's Rematch which, like Reduxigen, is a wrapper around Redux:
-* [Rematch](https://github.com/rematch/rematch)
+There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article]().
