@@ -6,6 +6,8 @@ export const reducers = {
   [REDUX_INIT]: state => state
 };
 
+// TODO Enalbe User Action Serialization (reducer middleware?)
+
 let _externalReducers = [];
 
 /**
@@ -73,7 +75,7 @@ export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch =>
  * For computed updates---for example, an increment
  * @param field
  * @param func
- * @return {{type: string, payload: *}}
+ * @return {function(*=): {type: string, payload: *}}
  */
 export const action = (field, func) => input => {
   const type = createActionName(field);
