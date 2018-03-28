@@ -122,4 +122,4 @@ Reduxigen's `connect` method will map the array of prop names you pass it to `ma
 For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
 
 ## Other Options
-There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article]().
+There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article](https://medium.com/@joseph0crick/redux-simplifiers-an-overview-46f4aac0908e).
