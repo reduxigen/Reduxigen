@@ -1,19 +1,27 @@
 import { connect } from "react-redux";
 import set from "lodash.set";
 import get from "lodash.get";
+import getProps from "../utils/get-props";
 
 export default (stateMap, actions) => PassThroughComponent => {
+  // Allow for function "overloading"
+  // This permits connect to be called as: connect(actions), or connect(stateMap, actions)
+  if (stateMap && !Array.isArray(stateMap) && !actions) {
+    actions = stateMap;
+    stateMap = null;
+  }
   const delimiter = " as ";
-  const mapStateToProps = stateMap
+  const props = stateMap || getProps(PassThroughComponent);
+  const mapStateToProps = props
     ? state =>
-        stateMap.reduce((prev, cur) => {
+        props.reduce((prev, cur) => {
           const newState = { ...prev };
           const prop = isObject(cur) ? getComputedProp(cur) : getProp(cur, delimiter);
           const val = isObject(cur) ? getComputedVal(cur, prop, state) : get(state, getVal(cur, delimiter));
           set(newState, prop, val);
           return newState;
         }, {})
-    : undefined;
+    : null;
 
   const mapDispatchToProps = actions
     ? dispatch =>
@@ -24,7 +32,7 @@ export default (stateMap, actions) => PassThroughComponent => {
           }),
           {}
         )
-    : undefined;
+    : null;
 
   const args = compileConnectArgs(mapStateToProps, mapDispatchToProps);
 
@@ -33,8 +41,12 @@ export default (stateMap, actions) => PassThroughComponent => {
 
 function compileConnectArgs(mapStateToProps, mapDispatchToProps) {
   const args = [];
-  if (mapStateToProps) args.push(mapStateToProps);
-  if (mapDispatchToProps) args.push(mapDispatchToProps);
+  if (mapStateToProps) {
+    args.push(mapStateToProps);
+  }
+  if (mapDispatchToProps) {
+    args.push(mapDispatchToProps);
+  }
   return args;
 }
 

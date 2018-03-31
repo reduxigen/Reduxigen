@@ -1,9 +1,13 @@
 import set from "lodash.set";
 
 const REDUX_INIT = "@@redux/INIT";
+const INIT = "@@INIT";
+
+const identity = self => self;
 
 export const reducers = {
-  [REDUX_INIT]: state => state
+  [REDUX_INIT]: identity,
+  [INIT]: identity
 };
 
 // TODO Enalbe User Action Serialization (reducer middleware?)
