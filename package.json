@@ -2,7 +2,7 @@
   "name": "reduxigen",
   "description": "Simplifying Redux to Objects and Actions",
   "author": "Joe Crick",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "scripts": {
     "start": "webpack -w",

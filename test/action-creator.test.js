@@ -21,13 +21,13 @@ describe("Action Creators", () => {
       expect(actual).toEqual(expected);
     });
     it("should add a new reducer to the rootReducer if it doesn't already exist", () => {
-      const expected = 2;
+      const expected = 3;
       update("type")("value");
       const actual = reducersCount(reducers);
       expect(actual).toEqual(expected);
     });
     it("should not add a new reducer to the rootReducer if it already exists", () => {
-      const expected = 2;
+      const expected = 3;
       update("type")("value");
       update("type")("value");
       const actual = reducersCount(reducers);
@@ -61,7 +61,7 @@ describe("Action Creators", () => {
       });
     });
     it("should add new reducers to the rootReducer if they don't already exist", () => {
-      const expected = 4;
+      const expected = 5;
       const store = mockStore();
       const fetchCars = asyncUpdate("cars", () => new Promise(resolve => resolve([1, 2, 3])));
       return store.dispatch(fetchCars()).then(() => {
@@ -70,7 +70,7 @@ describe("Action Creators", () => {
       });
     });
     it("should not add a new reducer to the rootReducer if it already exists", () => {
-      const expected = 4;
+      const expected = 5;
       const store = mockStore();
       const fetchCars = asyncUpdate("cars", () => new Promise(resolve => resolve([1, 2, 3])));
       return store.dispatch(fetchCars()).then(() => {
@@ -95,13 +95,13 @@ describe("Action Creators", () => {
       expect(actual).toEqual(expected);
     });
     it("should add a new reducer to the rootReducer if it doesn't already exist", () => {
-      const expected = 2;
+      const expected = 3;
       action("type", actionCallback)("value");
       const actual = reducersCount(reducers);
       expect(actual).toEqual(expected);
     });
     it("should not add a new reducer to the rootReducer if it already exists", () => {
-      const expected = 2;
+      const expected = 3;
       const updateType = action("type", actionCallback);
       updateType("value");
       updateType("value");
@@ -123,13 +123,13 @@ describe("Action Creators", () => {
       expect(actual).toEqual(expected);
     });
     it("should add a new reducer to the rootReducer if it doesn't already exist", () => {
-      const expected = 2;
+      const expected = 3;
       genericAction("update", actionCallback)("type")("value");
       const actual = reducersCount(reducers);
       expect(actual).toEqual(expected);
     });
     it("should not add a new reducer to the rootReducer if it already exists", () => {
-      const expected = 2;
+      const expected = 3;
       const updateType = genericAction("update", actionCallback);
       updateType("type")("value");
       updateType("type")("value");
@@ -164,7 +164,7 @@ describe("Action Creators", () => {
       });
     });
     it("should add new reducers to the rootReducer if they don't already exist", () => {
-      const expected = 4;
+      const expected = 5;
       const store = mockStore();
       return store.dispatch(updateDropoff('test')).then(() => {
         const actual = reducersCount(reducers);
@@ -172,7 +172,7 @@ describe("Action Creators", () => {
       });
     });
     it("should not add a new reducer to the rootReducer if it already exists", () => {
-      const expected = 4;
+      const expected = 5;
       const store = mockStore();
       return store.dispatch(updateDropoff('test')).then(() => {
         store.dispatch(updateDropoff('test')).then(() => {

@@ -1,1 +1,201 @@
-module.exports=function(t){var n={};function r(e){if(n[e])return n[e].exports;var o=n[e]={i:e,l:!1,exports:{}};return t[e].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=t,r.c=n,r.d=function(t,n,e){r.o(t,n)||Object.defineProperty(t,n,{configurable:!1,enumerable:!0,get:e})},r.r=function(t){Object.defineProperty(t,"__esModule",{value:!0})},r.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return r.d(n,"a",n),n},r.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},r.p="",r(r.s=9)}({1:function(t,n){var r;r=function(){return this}();try{r=r||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(r=window)}t.exports=r},4:function(t,n,r){(function(n){var r="Expected a function",e="__lodash_hash_undefined__",o=1/0,u=9007199254740991,i="[object Function]",c="[object GeneratorFunction]",a="[object Symbol]",f=/\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,p=/^\w*$/,s=/^\./,l=/[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g,h=/\\(\\)?/g,y=/^\[object .+?Constructor\]$/,d=/^(?:0|[1-9]\d*)$/,_="object"==typeof n&&n&&n.Object===Object&&n,v="object"==typeof self&&self&&self.Object===Object&&self,b=_||v||Function("return this")();var g,O=Array.prototype,j=Function.prototype,w=Object.prototype,m=b["__core-js_shared__"],P=(g=/[^.]+$/.exec(m&&m.keys&&m.keys.IE_PROTO||""))?"Symbol(src)_1."+g:"",x=j.toString,$=w.hasOwnProperty,S=w.toString,A=RegExp("^"+x.call($).replace(/[\\^$.*+?()[\]{}|]/g,"\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g,"$1.*?")+"$"),R=b.Symbol,E=O.splice,C=D(b,"Map"),F=D(Object,"create"),M=R?R.prototype:void 0,T=M?M.toString:void 0;function U(t){var n=-1,r=t?t.length:0;for(this.clear();++n<r;){var e=t[n];this.set(e[0],e[1])}}function I(t){var n=-1,r=t?t.length:0;for(this.clear();++n<r;){var e=t[n];this.set(e[0],e[1])}}function k(t){var n=-1,r=t?t.length:0;for(this.clear();++n<r;){var e=t[n];this.set(e[0],e[1])}}function G(t,n,r){var e=t[n];$.call(t,n)&&Q(e,r)&&(void 0!==r||n in t)||(t[n]=r)}function N(t,n){for(var r=t.length;r--;)if(Q(t[r][0],n))return r;return-1}function q(t){return!(!W(t)||P&&P in t)&&(function(t){var n=W(t)?S.call(t):"";return n==i||n==c}(t)||function(t){var n=!1;if(null!=t&&"function"!=typeof t.toString)try{n=!!(t+"")}catch(t){}return n}(t)?A:y).test(function(t){if(null!=t){try{return x.call(t)}catch(t){}try{return t+""}catch(t){}}return""}(t))}function z(t,n,r,e){if(!W(t))return t;for(var o=-1,u=(n=function(t,n){if(V(t))return!1;var r=typeof t;if("number"==r||"symbol"==r||"boolean"==r||null==t||X(t))return!0;return p.test(t)||!f.test(t)||null!=n&&t in Object(n)}(n,t)?[n]:function(t){return V(t)?t:J(t)}(n)).length,i=u-1,c=t;null!=c&&++o<u;){var a=K(n[o]),s=r;if(o!=i){var l=c[a];void 0===(s=e?e(l,a,c):void 0)&&(s=W(l)?l:H(n[o+1])?[]:{})}G(c,a,s),c=c[a]}return t}function B(t,n){var r,e,o=t.__data__;return("string"==(e=typeof(r=n))||"number"==e||"symbol"==e||"boolean"==e?"__proto__"!==r:null===r)?o["string"==typeof n?"string":"hash"]:o.map}function D(t,n){var r=function(t,n){return null==t?void 0:t[n]}(t,n);return q(r)?r:void 0}function H(t,n){return!!(n=null==n?u:n)&&("number"==typeof t||d.test(t))&&t>-1&&t%1==0&&t<n}U.prototype.clear=function(){this.__data__=F?F(null):{}},U.prototype.delete=function(t){return this.has(t)&&delete this.__data__[t]},U.prototype.get=function(t){var n=this.__data__;if(F){var r=n[t];return r===e?void 0:r}return $.call(n,t)?n[t]:void 0},U.prototype.has=function(t){var n=this.__data__;return F?void 0!==n[t]:$.call(n,t)},U.prototype.set=function(t,n){return this.__data__[t]=F&&void 0===n?e:n,this},I.prototype.clear=function(){this.__data__=[]},I.prototype.delete=function(t){var n=this.__data__,r=N(n,t);return!(r<0||(r==n.length-1?n.pop():E.call(n,r,1),0))},I.prototype.get=function(t){var n=this.__data__,r=N(n,t);return r<0?void 0:n[r][1]},I.prototype.has=function(t){return N(this.__data__,t)>-1},I.prototype.set=function(t,n){var r=this.__data__,e=N(r,t);return e<0?r.push([t,n]):r[e][1]=n,this},k.prototype.clear=function(){this.__data__={hash:new U,map:new(C||I),string:new U}},k.prototype.delete=function(t){return B(this,t).delete(t)},k.prototype.get=function(t){return B(this,t).get(t)},k.prototype.has=function(t){return B(this,t).has(t)},k.prototype.set=function(t,n){return B(this,t).set(t,n),this};var J=L(function(t){var n;t=null==(n=t)?"":function(t){if("string"==typeof t)return t;if(X(t))return T?T.call(t):"";var n=t+"";return"0"==n&&1/t==-o?"-0":n}(n);var r=[];return s.test(t)&&r.push(""),t.replace(l,function(t,n,e,o){r.push(e?o.replace(h,"$1"):n||t)}),r});function K(t){if("string"==typeof t||X(t))return t;var n=t+"";return"0"==n&&1/t==-o?"-0":n}function L(t,n){if("function"!=typeof t||n&&"function"!=typeof n)throw new TypeError(r);var e=function(){var r=arguments,o=n?n.apply(this,r):r[0],u=e.cache;if(u.has(o))return u.get(o);var i=t.apply(this,r);return e.cache=u.set(o,i),i};return e.cache=new(L.Cache||k),e}function Q(t,n){return t===n||t!=t&&n!=n}L.Cache=k;var V=Array.isArray;function W(t){var n=typeof t;return!!t&&("object"==n||"function"==n)}function X(t){return"symbol"==typeof t||function(t){return!!t&&"object"==typeof t}(t)&&S.call(t)==a}t.exports=function(t,n,r){return null==t?t:z(t,n,r)}}).call(this,r(1))},9:function(t,n,r){"use strict";Object.defineProperty(n,"__esModule",{value:!0}),n.asyncAction=n.genericAction=n.action=n.asyncUpdate=n.update=n.addReducers=n.rootReducer=n.reducers=void 0;var e,o=Object.assign||function(t){for(var n=1;n<arguments.length;n++){var r=arguments[n];for(var e in r)Object.prototype.hasOwnProperty.call(r,e)&&(t[e]=r[e])}return t},u=r(4),i=(e=u)&&e.__esModule?e:{default:e};var c=n.reducers=function(t,n,r){return n in t?Object.defineProperty(t,n,{value:r,enumerable:!0,configurable:!0,writable:!0}):t[n]=r,t}({},"@@redux/INIT",function(t){return t}),a=[],f=(n.rootReducer=function(t){return function(){var n=arguments.length>0&&void 0!==arguments[0]?arguments[0]:t,r=arguments[1],e=r.type,o=r.payload,u=a.some(function(t){return n!==t(n,r)});if(u)return u;if(c.hasOwnProperty(e))return c[e](n,o);throw new Error("Reducer not found")}},n.addReducers=function(t){a=a.concat(t)},n.update=function(t){return function(n){var r=y(t),e=l(n);return c.hasOwnProperty(r)||(c[r]=function(n,r){return(0,i.default)(o({},n),t,r)}),{type:r,payload:e}}}),p=(n.asyncUpdate=function(t,n,r){return function(e){return function(o){return o(d(t,!0)),o(_(t,!1)),n(e).then(function(t){return h(r,t)?t[r]():t}).then(function(n){o(d(t,!1)),o(f(t)(n))}).catch(function(n){return o(_(t,n))})}}},n.action=function(t,n){return function(r){var e=y(t),o=l(r);return c.hasOwnProperty(e)||(c[e]=s(t,n)),{type:e,payload:o}}});n.genericAction=function(t,n){return function(r){return function(e){var o=y(r,t.toUpperCase());return c.hasOwnProperty(o)||(c[o]=s(r,n)),{type:o,payload:e}}}},n.asyncAction=function(t,n,r,e){return function(o){return function(u){u(d(t,!0)),u(_(t,!1));var i=p(t,n);return r(o).then(function(t){return h(e,t)?t[e]():t}).then(function(n){u(d(t,!1)),u(i(n))}).catch(function(n){return u(_(t,n))})}}};function s(t,n){return function(r,e){return(0,i.default)(o({},r),t,n(e))}}function l(t){return function(t){return t.target&&t.target.hasOwnProperty("value")}(t)?t.target.value:t}function h(t,n){return t&&t in n&&"function"==typeof n[t]}function y(t){return(arguments.length>1&&void 0!==arguments[1]?arguments[1]:"SET")+"_"+t.toUpperCase()}function d(t,n){return f(t+"_loading")(n)}function _(t,n){return f(t+"_error")(n)}}});
+import set from "lodash.set";
+
+const REDUX_INIT = "@@redux/INIT";
+const INIT = "@@INIT";
+
+const identity = self => self;
+
+export const reducers = {
+  [REDUX_INIT]: identity,
+  [INIT]: identity
+};
+
+// TODO Enalbe User Action Serialization (reducer middleware?)
+
+let _externalReducers = [];
+
+/**
+ * Reduxigen's Central Reducer
+ * @param defaultState
+ * @return {Function}
+ */
+export const rootReducer = defaultState => (state = defaultState, action) => {
+  const { type, payload } = action;
+  const foundReducer = _externalReducers.some(reducer => state !== reducer(state, action));
+  if (foundReducer) {
+    return foundReducer;
+  } else if (reducers.hasOwnProperty(type)) {
+    return reducers[type](state, payload);
+  } else {
+    throw new Error("Reducer not found");
+  }
+};
+
+/**
+ * Allows external reducers to be combined with Reduxigen's Central Reducer
+ * @param {Array} reducer
+ */
+export const addReducers = reducer => {
+  _externalReducers = _externalReducers.concat(reducer);
+};
+
+/**
+ * Creates a simple update action---state field is updated to value
+ * @param field
+ * @return {{type: string, payload: *}}
+ */
+export const update = field => input => {
+  const type = createActionName(field);
+  const payload = getPayload(input);
+  if (!reducers.hasOwnProperty(type)) {
+    reducers[type] = (state, value) => set({ ...state }, field, value);
+  }
+  return {
+    type,
+    payload
+  };
+};
+
+/**
+ * Simple async update action---state field is updated to a value
+ * @param field
+ * @param asyncOp
+ * @param fetchMethod
+ * @return {function(*=, *=): function(*)}
+ */
+export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch => {
+  dispatch(isLoading(field, true));
+  dispatch(hasError(field, false));
+  return asyncOp(query)
+    .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
+    .then(data => {
+      dispatch(isLoading(field, false));
+      dispatch(update(field)(data));
+    })
+    .catch(error => dispatch(hasError(field, error)));
+};
+
+/**
+ * For computed updates---for example, an increment
+ * @param field
+ * @param func
+ * @return {function(*=): {type: string, payload: *}}
+ */
+export const action = (field, func) => input => {
+  const type = createActionName(field);
+  const payload = getPayload(input);
+  if (!reducers.hasOwnProperty(type)) {
+    reducers[type] = applyAction(field, func);
+  }
+  return {
+    type,
+    payload
+  };
+};
+
+/**
+ * For computed updates---for example, an increment
+ * @param name
+ * @param func
+ * @return {function(*, *)}
+ */
+export const genericAction = (name, func) => field => payload => {
+  const type = createActionName(field, name.toUpperCase());
+  if (!reducers.hasOwnProperty(type)) {
+    reducers[type] = applyAction(field, func);
+  }
+  return {
+    type,
+    payload
+  };
+};
+
+/**
+ * Like an action, but asynchronous
+ * @param field
+ * @param func
+ * @param asyncOp
+ * @param fetchMethod
+ * @return {function(*=, *=): function(*)}
+ */
+export const asyncAction = (field, func, asyncOp, fetchMethod) => query => dispatch => {
+  dispatch(isLoading(field, true));
+  dispatch(hasError(field, false));
+  const actionToRun = action(field, func);
+  return asyncOp(query)
+    .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
+    .then(data => {
+      dispatch(isLoading(field, false));
+      dispatch(actionToRun(data));
+    })
+    .catch(error => dispatch(hasError(field, error)));
+};
+
+/**
+ * Applies an action to a state update
+ * @param field
+ * @param func
+ * @return {function(*, *=): Object}
+ */
+function applyAction(field, func) {
+  return (state, value) => set({ ...state }, field, func(value));
+}
+
+/**
+ * Gets the payload from an event object, if one exists
+ * @param payload
+ * @return {*}
+ */
+function getPayload(payload) {
+  return isEventObject(payload) ? payload.target.value : payload;
+}
+
+/**
+ * Duck tyoe to determine whether or not this is an event object
+ * @param payload
+ * @return {*}
+ */
+function isEventObject(payload) {
+  return payload.target && payload.target.hasOwnProperty("value");
+}
+
+/**
+ * Determine whether or not the asyncOp is a fetch, based on whether or not the fetch data access
+ * method passed in exists---and, if so, if it is a function.
+ * @param fetchMethod
+ * @param data
+ * @return {boolean}
+ */
+function isFetch(fetchMethod, data) {
+  return fetchMethod && fetchMethod in data && typeof data[fetchMethod] === "function";
+}
+
+/**
+ * Create a default action name
+ * @param field
+ * @param prefix
+ * @return {string}
+ */
+function createActionName(field, prefix = "SET") {
+  return `${prefix}_${field.toUpperCase()}`;
+}
+
+/**
+ * Dispatch an update action indicating that a specific field is loading
+ * @param field
+ * @param hasLoaded
+ * @return {{type: string, payload: *}}
+ */
+function isLoading(field, hasLoaded) {
+  return update(`${field}_loading`)(hasLoaded);
+}
+
+/**
+ * Dispatch an update action to indicate that an error has occurred for a specific field
+ * @param field
+ * @param isError
+ * @return {{type: string, payload: *}}
+ */
+function hasError(field, isError) {
+  return update(`${field}_error`)(isError);
+}
