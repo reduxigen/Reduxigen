@@ -87,7 +87,7 @@ describe("Connected", () => {
     const expected = true;
     const actions = { actionOne: () => {} };
     const sampleComponent = props => {
-      const translate = props['ignoredProp'];
+      const translate = props["ignoredProp"];
       return (
         <div>
           <h1 className="test">{props.test}</h1>

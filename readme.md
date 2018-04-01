@@ -11,9 +11,16 @@
 
 "[Redux] is hard... Integrating React and Redux is going to make [your] architecture more complicated." - [Brian Holt](https://github.com/btholt)
 
-Reduxigen - Making Redux simpler.
+Reduxigen - Making powerful state management simple.
 
-No one likes writing Redux boilerplate. It’s time consuming, error prone, and boring. Thanks to Reduxigen, you don’t have to any more!
+Reduxigen makes working with React and Redux ridiculously simple:
+
+ * No action creators. 
+ * No reducers. 
+ * No mapStateToProps. 
+ * No mapDispatchToProps. 
+ 
+There are only functions that update your state, and a powerful, simple `connect` method that wires everything up. 
 
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/book-my-hooptie)
 
