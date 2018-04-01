@@ -20,7 +20,10 @@ Reduxigen makes working with React and Redux ridiculously simple:
  * No mapStateToProps. 
  * No mapDispatchToProps. 
  
-There are only functions that update your state, and a powerful, simple `connect` method that wires everything up. 
+What is there? 
+
+* functions that update your state, and 
+* a powerful, simple `connect` method to bind React to Redux. 
 
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/book-my-hooptie)
 

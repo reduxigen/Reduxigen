@@ -1,6 +1,6 @@
 {
   "name": "reduxigen",
-  "description": "Simplifying Redux to Objects and Actions",
+  "description": "Ridiculously Simple State Management with React and Redux",
   "author": "Joe Crick",
   "version": "0.0.5",
   "license": "MIT",
