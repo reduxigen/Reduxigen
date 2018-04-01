@@ -1,19 +1,30 @@
 import { connect } from "react-redux";
 import set from "lodash.set";
 import get from "lodash.get";
+import getProps from "../utils/get-props";
+import { first, second } from '../utils/list-methods';
+import isObject from "../utils/is-object";
 
 export default (stateMap, actions) => PassThroughComponent => {
+  // Allow for function "overloading"
+  // This permits connect to be called as: connect(), connect(stateMap), connect(actions),
+  // or connect(stateMap, actions)
+  if (stateMap && !Array.isArray(stateMap) && !actions) {
+    actions = stateMap;
+    stateMap = null;
+  }
   const delimiter = " as ";
-  const mapStateToProps = stateMap
+  const props = stateMap || getProps(PassThroughComponent);
+  const mapStateToProps = props
     ? state =>
-        stateMap.reduce((prev, cur) => {
+        props.reduce((prev, cur) => {
           const newState = { ...prev };
           const prop = isObject(cur) ? getComputedProp(cur) : getProp(cur, delimiter);
           const val = isObject(cur) ? getComputedVal(cur, prop, state) : get(state, getVal(cur, delimiter));
           set(newState, prop, val);
           return newState;
         }, {})
-    : undefined;
+    : null;
 
   const mapDispatchToProps = actions
     ? dispatch =>
@@ -24,7 +35,7 @@ export default (stateMap, actions) => PassThroughComponent => {
           }),
           {}
         )
-    : undefined;
+    : null;
 
   const args = compileConnectArgs(mapStateToProps, mapDispatchToProps);
 
@@ -33,21 +44,13 @@ export default (stateMap, actions) => PassThroughComponent => {
 
 function compileConnectArgs(mapStateToProps, mapDispatchToProps) {
   const args = [];
-  if (mapStateToProps) args.push(mapStateToProps);
-  if (mapDispatchToProps) args.push(mapDispatchToProps);
+  if (mapStateToProps) {
+    args.push(mapStateToProps);
+  }
+  if (mapDispatchToProps) {
+    args.push(mapDispatchToProps);
+  }
   return args;
-}
-
-function isObject(cur) {
-  return cur !== null && typeof cur === "object";
-}
-
-function first(arr) {
-  return arr[0];
-}
-
-function second(arr) {
-  return arr[1];
 }
 
 function getProp(cur, delimiter) {
