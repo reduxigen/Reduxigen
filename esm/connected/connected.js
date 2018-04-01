@@ -2,10 +2,13 @@ import { connect } from "react-redux";
 import set from "lodash.set";
 import get from "lodash.get";
 import getProps from "../utils/get-props";
+import { first, second } from '../utils/list-methods';
+import isObject from "../utils/is-object";
 
 export default (stateMap, actions) => PassThroughComponent => {
   // Allow for function "overloading"
-  // This permits connect to be called as: connect(actions), or connect(stateMap, actions)
+  // This permits connect to be called as: connect(), connect(stateMap), connect(actions),
+  // or connect(stateMap, actions)
   if (stateMap && !Array.isArray(stateMap) && !actions) {
     actions = stateMap;
     stateMap = null;
@@ -48,18 +51,6 @@ function compileConnectArgs(mapStateToProps, mapDispatchToProps) {
     args.push(mapDispatchToProps);
   }
   return args;
-}
-
-function isObject(cur) {
-  return cur !== null && typeof cur === "object";
-}
-
-function first(arr) {
-  return arr[0];
-}
-
-function second(arr) {
-  return arr[1];
 }
 
 function getProp(cur, delimiter) {
