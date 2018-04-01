@@ -83,6 +83,33 @@ describe("Connected", () => {
     expect(actual).toEqual(expected);
   });
 
+  it("should ignore bracket referenced props when auto injecting state", () => {
+    const expected = true;
+    const actions = { actionOne: () => {} };
+    const sampleComponent = props => {
+      const translate = props['ignoredProp'];
+      return (
+        <div>
+          <h1 className="test">{props.test}</h1>
+          <p>{translate}</p>
+        </div>
+      );
+    };
+    const Sut = connect(actions)(sampleComponent);
+    const store = mockStore({
+      test: expected
+    });
+    const app = mount(<Sut store={store} />);
+    const props = app
+      .children()
+      .first()
+      .props();
+
+    const actual = props.hasOwnProperty("test") && !props.hasOwnProperty("ignoredProp");
+
+    expect(actual).toEqual(expected);
+  });
+
   it("should render a component with an aliased flat state", () => {
     const expected = "test";
     const sampleComponent = props => <h1 className="test">{props.alias}</h1>;
