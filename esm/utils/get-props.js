@@ -1,9 +1,5 @@
-const ZERO_OR_MORE_CHARS = "\\w*";
-const MATCH_WORD = `${ZERO_OR_MORE_CHARS}\\.(\\w+)`;
-const MATCH_PROPS = new RegExp(`props${MATCH_WORD}`, "gi");
-const STRIP = new RegExp(`(ref${ZERO_OR_MORE_CHARS}|props${ZERO_OR_MORE_CHARS})\\.`, "ig");
-
-const reservedPropNames = ["t"];
+const MATCH_PROPS = /props\w*\.([\w]+\.)*[\w]+/ig;
+const STRIP = /(props\w*)\./ig;
 
 /**
  * Returns a collection of all properties used in the component. It works as follows:
@@ -12,7 +8,7 @@ const reservedPropNames = ["t"];
  * where * === a number (e.g., props2), we look for instances of `props*.`.
  *
  * For class-based functions, we grab the `render` function from the `prototype` and
- * convert it to a string. As above, we then `match` every instance of `props.x` or `refs.x`.
+ * convert it to a string. As above, we then `match` every instance of `props.x`.
  *
  * Destructuring is currently not supported.
  *
@@ -36,9 +32,7 @@ export default fn => {
 function removeDuplicateProperties(propSet) {
   const propHash = propSet.reduce((prev, cur) => {
     const propName = cur.replace(STRIP, "");
-    if (!reservedPropNames.includes(propName)) {
-      prev[propName] = "";
-    }
+    prev[propName] = "";
     return prev;
   }, {});
   return Object.keys(propHash);
@@ -51,5 +45,5 @@ function removeDuplicateProperties(propSet) {
  * @return {boolean}
  */
 function isReactComponent(fn) {
-  return fn.prototype.hasOwnProperty("render")
+  return fn.prototype.hasOwnProperty("render");
 }
