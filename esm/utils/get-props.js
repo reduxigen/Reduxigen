@@ -1,5 +1,20 @@
-const MATCH_PROPS = /props\w*\.([\w]+\.)*[\w]+/ig;
-const STRIP = /(props\w*)\./ig;
+/**
+ * Should match terms that fit the pattern: props*.xxx[.xxx...], where .xxx... is an infinitely repeating pattern
+ * props : match the term "props"
+ * \w* : match zero or more instances of any word char [a-zA-Z0-9_] (greedy)
+ * \. : match a "."
+ * ([\w]+\.)* : match any word of the form "xxx." zero or more times. (greedy)
+ * [\w]+ : match a whole word
+ * @type {RegExp}
+ */
+const MATCH_PROPS = /props\w*\.([\w]+\.)*[\w]+/gi;
+/**
+ * props : match the term "props"
+ * \w*: match zero or more instances of any word char [a-zA-Z0-9_] (greedy)
+ * \. : match a "."
+ * @type {RegExp}
+ */
+const STRIP = /(props\w*)\./gi;
 
 /**
  * Returns a collection of all properties used in the component. It works as follows:
