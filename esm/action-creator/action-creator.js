@@ -42,7 +42,7 @@ export const addReducers = reducer => {
 /**
  * Creates a simple update action---state field is updated to value
  * @param field
- * @return {{type: string, payload: *}}
+ * @return {function(*=): {type: string, payload: *}}
  */
 export const update = field => input => {
   const type = createActionName(field);

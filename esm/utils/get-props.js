@@ -36,7 +36,7 @@ export default fn => {
     const propSet = fnString.match(MATCH_PROPS) || [];
     return removeDuplicateProperties(propSet);
   }
-  throw new Error("This method expects a function or a class. Some other value was passed in, instead.");
+  throw new Error(`This method expects a function or a class. Instead, it received: ${JSON.stringify(fn)}.`);
 };
 
 /**
