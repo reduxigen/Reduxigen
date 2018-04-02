@@ -9,7 +9,7 @@
     "build": "webpack -p",
     "dev-build": "webpack -d",
     "test": "jest",
-    "prepublish": "npm build && npm test"
+    "prepare": "npm build && npm test"
   },
   "dependencies": {
     "lodash.get": "^4.4.2",
