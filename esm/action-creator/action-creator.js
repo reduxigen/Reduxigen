@@ -10,8 +10,6 @@ export const reducers = {
   [INIT]: identity
 };
 
-// TODO Enalbe User Action Serialization (reducer middleware?)
-
 let _externalReducers = [];
 
 /**
@@ -27,7 +25,7 @@ export const rootReducer = defaultState => (state = defaultState, action) => {
   } else if (reducers.hasOwnProperty(type)) {
     return reducers[type](state, payload);
   } else {
-    throw new Error("Reducer not found");
+    throw new Error(`Reducer for "${type}" not found`);
   }
 };
 
@@ -67,7 +65,7 @@ export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch =>
   dispatch(isLoading(field, true));
   dispatch(hasError(field, false));
   return asyncOp(query)
-    .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
+    .then(data => isFetch(fetchMethod, data) ? data[fetchMethod]() : data)
     .then(data => {
       dispatch(isLoading(field, false));
       dispatch(update(field)(data));
@@ -82,7 +80,7 @@ export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch =>
  * @return {function(*=): {type: string, payload: *}}
  */
 export const action = (field, func) => input => {
-  const type = createActionName(field);
+  const type = createActionName(field, "ACTION");
   const payload = getPayload(input);
   if (!reducers.hasOwnProperty(type)) {
     reducers[type] = applyAction(field, func);
@@ -116,9 +114,9 @@ export const genericAction = (name, func) => field => payload => {
  * @param func
  * @param asyncOp
  * @param fetchMethod
- * @return {function(*=, *=): function(*)}
+ * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
  */
-export const asyncAction = (field, func, asyncOp, fetchMethod) => query => dispatch => {
+export const asyncAction = (field, func, asyncOp, fetchMethod) => query => (dispatch, getState) => {
   dispatch(isLoading(field, true));
   dispatch(hasError(field, false));
   const actionToRun = action(field, func);
@@ -138,7 +136,7 @@ export const asyncAction = (field, func, asyncOp, fetchMethod) => query => dispa
  * @return {function(*, *=): Object}
  */
 function applyAction(field, func) {
-  return (state, value) => set({ ...state }, field, func(value));
+  return (state, value) => set({ ...state }, field, func(value, state));
 }
 
 /**
@@ -156,7 +154,7 @@ function getPayload(payload) {
  * @return {*}
  */
 function isEventObject(payload) {
-  return payload.target && payload.target.hasOwnProperty("value");
+  return payload && payload.target && payload.target.hasOwnProperty("value");
 }
 
 /**
@@ -167,7 +165,7 @@ function isEventObject(payload) {
  * @return {boolean}
  */
 function isFetch(fetchMethod, data) {
-  return fetchMethod && fetchMethod in data && typeof data[fetchMethod] === "function";
+  return fetchMethod && data && fetchMethod in data && typeof data[fetchMethod] === "function"
 }
 
 /**

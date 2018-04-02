@@ -89,13 +89,13 @@ describe("Action Creators", () => {
 
   describe("action", () => {
     afterEach(() => {
-      delete reducers.SET_TYPE;
+      delete reducers.ACTION_TYPE;
     });
 
     const actionCallback = (state, pickup) => ({ ...state, pickup });
 
     it("should return an action", () => {
-      const expected = { payload: "value", type: "SET_TYPE" };
+      const expected = { payload: "value", type: "ACTION_TYPE" };
       const actual = action("type", actionCallback)("value");
       expect(actual).toEqual(expected);
     });
@@ -147,7 +147,7 @@ describe("Action Creators", () => {
     afterEach(() => {
       delete reducers.SET_CARS_LOADING;
       delete reducers.SET_CARS_ERROR;
-      delete reducers.SET_CARS;
+      delete reducers.ACTION_CARS;
     });
 
     let updateDropoff;
@@ -162,7 +162,7 @@ describe("Action Creators", () => {
         { payload: true, type: "SET_DROPOFF_LOADING" },
         { payload: false, type: "SET_DROPOFF_ERROR" },
         { payload: false, type: "SET_DROPOFF_LOADING" },
-        { payload: "test", type: "SET_DROPOFF" }
+        { payload: "test", type: "ACTION_DROPOFF" }
       ];
       return store.dispatch(updateDropoff("test")).then(() => {
         const actual = store.getActions();
