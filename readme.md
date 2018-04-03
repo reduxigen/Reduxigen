@@ -25,7 +25,10 @@ What is there?
 * functions that update your state, and 
 * a powerful, simple `connect` method to bind React to Redux. 
 
-To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/book-my-hooptie)
+If you'd like to follow a step-by-step tutorial on getting started with Reduxigen,
+you can read this blog article: [Super Simple React/Redux Apps with Reduxigen: Step by Step](https://medium.com/@joseph0crick/super-simple-react-redux-apps-with-reduxigen-step-by-step-16ef9b884dd3)
+
+To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/contact-manager)
 
 To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
 
