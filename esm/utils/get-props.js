@@ -25,6 +25,9 @@ const STRIP = /(props\w*)\./gi;
  * For class-based functions, we grab the `render` function from the `prototype` and
  * convert it to a string. As above, we then `match` every instance of `props.x`.
  *
+ * Note: The results of mapStateToProps must be a plain object, which will be merged into
+ * the component’s props.
+ *
  * Destructuring is currently not supported.
  *
  * @param fn
@@ -33,24 +36,44 @@ const STRIP = /(props\w*)\./gi;
 export default fn => {
   if (typeof fn === "function") {
     const fnString = isReactComponent(fn) ? fn.prototype.render.toString() : fn.toString();
-    const propSet = fnString.match(MATCH_PROPS) || [];
-    return removeDuplicateProperties(propSet);
+    const rawProperties = fnString.match(MATCH_PROPS) || [];
+    const propSet = removeDuplicateProperties(rawProperties);
+    const baseProps = getBaseProperties(propSet);
+    return propSet
+      .filter(prop => !baseProps.hasOwnProperty(prop))
+      .map(prop => prop.replace(STRIP, ""));
   }
   throw new Error(`This method expects a function or a class. Instead, it received: ${JSON.stringify(fn)}.`);
 };
 
 /**
- * Removes duplicate properties from the property set using a hash method for easy and brevity.
+ * Removes duplicate properties from the property set using new Set for simplicity and brevity,
+ * though it's not nearly as performant (but the size of the propSet should also be small).
  * @param propSet
  * @return {string[]}
  */
-function removeDuplicateProperties(propSet) {
-  const propHash = propSet.reduce((prev, cur) => {
-    const propName = cur.replace(STRIP, "");
-    prev[propName] = "";
+const removeDuplicateProperties = propSet => {
+  return [...new Set(propSet)];
+};
+
+/**
+ * Base properties are properties objects, for example in the object { target: { value: 1 } }
+ * `target` would be a base property. `react-redux` expects properties to be explicitly named
+ * in order to correctly map them. Additionally, mapStateToProps must return a POJO. If we don't
+ * excise the base properties, then the specific properties required for the component will be
+ * overridden.
+ * @param propSet
+ */
+function getBaseProperties(propSet) {
+  const delimiter = ".";
+  return propSet.reduce((prev, cur) => {
+    if (cur.includes(delimiter)) {
+      const splitProp = cur.split(delimiter);
+      const baseProp = splitProp.slice(0, splitProp.length - 1).join(delimiter);
+      prev[baseProp] = "";
+    }
     return prev;
   }, {});
-  return Object.keys(propHash);
 }
 
 /**
