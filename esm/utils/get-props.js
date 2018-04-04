@@ -35,26 +35,46 @@ const STRIP = /(props\w*)\./gi;
  */
 export default fn => {
   if (typeof fn === "function") {
-    const fnString = isReactComponent(fn) ? fn.prototype.render.toString() : fn.toString();
-    const rawProperties = fnString.match(MATCH_PROPS) || [];
-    const propSet = removeDuplicateProperties(rawProperties);
+    const propSet = getRawPropertiesFromComponent(fn)
+      .filter(removeDuplicateProperties);
     const baseProps = getBaseProperties(propSet);
     return propSet
-      .filter(prop => !baseProps.hasOwnProperty(prop))
-      .map(prop => prop.replace(STRIP, ""));
+      .filter(filterOutBaseProps(baseProps))
+      .map(stripPropPrefix);
   }
   throw new Error(`This method expects a function or a class. Instead, it received: ${JSON.stringify(fn)}.`);
 };
 
+const stripPropPrefix = prop => prop.replace(STRIP, "");
+const filterOutBaseProps = baseProps => prop => !baseProps.hasOwnProperty(prop);
+
 /**
- * Removes duplicate properties from the property set using new Set for simplicity and brevity,
- * though it's not nearly as performant (but the size of the propSet should also be small).
- * @param propSet
- * @return {string[]}
+ * Returns an array of properties from a stringified function body
+ * @return {*|Array}
+ * @param {Function} fn
  */
-const removeDuplicateProperties = propSet => {
-  return [...new Set(propSet)];
-};
+function getRawPropertiesFromComponent(fn) {
+  const fnString = reactComponentToString(fn);
+  return fnString.match(MATCH_PROPS) || [];
+}
+
+/**
+ * Converts a stateless functional component or React class' `render` function to string
+ * @param fn
+ * @return {string}
+ */
+function reactComponentToString(fn) {
+  return isReactComponent(fn) ? fn.prototype.render.toString() : fn.toString();
+}
+
+/**
+ * Removes simple duplicates from an array
+ * @param elem
+ * @param pos
+ * @param arr
+ * @return {boolean}
+ */
+const removeDuplicateProperties = (elem, pos, arr) => arr.indexOf(elem) === pos;
 
 /**
  * Base properties are properties objects, for example in the object { target: { value: 1 } }
