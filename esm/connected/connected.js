@@ -2,10 +2,10 @@ import { connect } from "react-redux";
 import set from "lodash.set";
 import get from "lodash.get";
 import getProps from "../utils/get-props";
-import { first, second } from '../utils/list-methods';
+import { first, second } from "../utils/list-methods";
 import isObject from "../utils/is-object";
 
-export default (stateMap, actions) => PassThroughComponent => {
+export default (stateMap, actions, mergeProps, options) => PassThroughComponent => {
   // Allow for function "overloading"
   // This permits connect to be called as: connect(), connect(stateMap), connect(actions),
   // or connect(stateMap, actions)
@@ -37,21 +37,8 @@ export default (stateMap, actions) => PassThroughComponent => {
         )
     : null;
 
-  const args = compileConnectArgs(mapStateToProps, mapDispatchToProps);
-
-  return connect.apply(null, args)(PassThroughComponent);
+  return connect(mapStateToProps, mapDispatchToProps, mergeProps, options)(PassThroughComponent);
 };
-
-function compileConnectArgs(mapStateToProps, mapDispatchToProps) {
-  const args = [];
-  if (mapStateToProps) {
-    args.push(mapStateToProps);
-  }
-  if (mapDispatchToProps) {
-    args.push(mapDispatchToProps);
-  }
-  return args;
-}
 
 function getProp(cur, delimiter) {
   return cur.includes(delimiter) ? second(cur.split(delimiter)) : cur;
