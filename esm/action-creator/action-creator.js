@@ -19,9 +19,13 @@ let _externalReducers = [];
  */
 export const rootReducer = defaultState => (state = defaultState, action) => {
   const { type, payload } = action;
-  const foundReducer = _externalReducers.some(reducer => state !== reducer(state, action));
+  let newState;
+  const foundReducer = _externalReducers.some(reducer => {
+    newState = reducer(state, action);
+    state !== newState;
+  });
   if (foundReducer) {
-    return foundReducer;
+    return newState;
   } else if (reducers.hasOwnProperty(type)) {
     return reducers[type](state, payload);
   } else {
