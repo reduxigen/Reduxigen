@@ -19,10 +19,10 @@ let _externalReducers = [];
  */
 export const rootReducer = defaultState => (state = defaultState, action) => {
   const { type, payload } = action;
-  let newState;
+  let newState = {};
   const foundReducer = _externalReducers.some(reducer => {
     newState = reducer(state, action);
-    state !== newState;
+    return state !== newState;
   });
   if (foundReducer) {
     return newState;
