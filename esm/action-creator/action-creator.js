@@ -29,7 +29,7 @@ export const rootReducer = defaultState => (state = defaultState, action) => {
   } else if (reducers.hasOwnProperty(type)) {
     return reducers[type](state, payload);
   } else {
-    throw new Error(`Reducer for "${type}" not found`);
+    return state;
   }
 };
 
@@ -69,7 +69,7 @@ export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch =>
   dispatch(isLoading(field, true));
   dispatch(hasError(field, false));
   return asyncOp(query)
-    .then(data => isFetch(fetchMethod, data) ? data[fetchMethod]() : data)
+    .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
     .then(data => {
       dispatch(isLoading(field, false));
       dispatch(update(field)(data));
@@ -81,19 +81,28 @@ export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch =>
  * For computed updates---for example, an increment
  * @param field
  * @param func
+ * @param isSet
  * @return {function(*=): {type: string, payload: *}}
  */
-export const action = (field, func) => input => {
-  const type = createActionName(field, "ACTION");
+export const action = (field, func, isSet = false) => input => {
+  const type = createActionName(field, isSet ? "ACTION_SET" : "ACTION");
   const payload = getPayload(input);
   if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = applyAction(field, func);
+    reducers[type] = isSet ? applyActionSet(func) : applyAction(field, func);
   }
   return {
     type,
     payload
   };
 };
+
+/**
+ * For updating multiple properties in state
+ * @param name
+ * @param func
+ * @return {function(*=): {type: string, payload: *}}
+ */
+export const actionSet = (name, func) => action(name, func, true);
 
 /**
  * For computed updates---for example, an increment
@@ -118,12 +127,13 @@ export const genericAction = (name, func) => field => payload => {
  * @param func
  * @param asyncOp
  * @param fetchMethod
+ * @param isSet
  * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
  */
-export const asyncAction = (field, func, asyncOp, fetchMethod) => query => (dispatch, getState) => {
+export const asyncAction = (field, func, asyncOp, fetchMethod, isSet = false) => query => (dispatch, getState) => {
   dispatch(isLoading(field, true));
   dispatch(hasError(field, false));
-  const actionToRun = action(field, func);
+  const actionToRun = isSet ? actionSet(field, func) : action(field, func);
   return asyncOp(query)
     .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
     .then(data => {
@@ -132,6 +142,25 @@ export const asyncAction = (field, func, asyncOp, fetchMethod) => query => (disp
     })
     .catch(error => dispatch(hasError(field, error)));
 };
+
+/**
+ * Runs an asynchronous action set
+ * @param name
+ * @param func
+ * @param asyncOp
+ * @param fetchMethod
+ * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
+ */
+export const asyncActionSet = (name, func, asyncOp, fetchMethod) => asyncAction(name, func, asyncOp, fetchMethod, true);
+
+/**
+ * Merges the result of a function into the state, and returns a new, updated state.
+ * @param func
+ * @return {function(*=, *=): any}
+ */
+function applyActionSet(func) {
+  return (state, value) => Object.assign({}, state, func(value, state));
+}
 
 /**
  * Applies an action to a state update
@@ -169,7 +198,7 @@ function isEventObject(payload) {
  * @return {boolean}
  */
 function isFetch(fetchMethod, data) {
-  return fetchMethod && data && fetchMethod in data && typeof data[fetchMethod] === "function"
+  return fetchMethod && data && fetchMethod in data && typeof data[fetchMethod] === "function";
 }
 
 /**

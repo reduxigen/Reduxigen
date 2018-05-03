@@ -2,6 +2,7 @@ import {
   update,
   asyncUpdate,
   action,
+  actionSet,
   genericAction,
   asyncAction,
   reducers
@@ -111,6 +112,21 @@ describe("Action Creators", () => {
       updateType("value");
       updateType("value");
       const actual = reducersCount(reducers);
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('actionSet', () => {
+    afterEach(() => {
+      delete reducers.ACTION_SET_TEST;
+    });
+    it("should update multiple fields on the state", () => {
+      const expected = {"payload": "12", "type": "ACTION_SET_TEST"};
+      const updateType = actionSet('test', (state, pickup) => ({
+        thing: state.type,
+        pickup
+      }));
+      const actual = updateType('12');
       expect(actual).toEqual(expected);
     });
   });

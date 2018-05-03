@@ -17,10 +17,6 @@ describe("reducers", () => {
     expect(actual).toEqual(expected);
   });
 
-  it("should throw is passed an invalid genericAction", () => {
-    expect(() => rootReducer({}, { type: "SET_TEST", payload: "test" })).toThrow();
-  });
-
   it("should be able to integrate external reducers", () => {
     const expected = 1;
     const mock = jest.fn();

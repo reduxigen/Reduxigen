@@ -1,13 +1,13 @@
 
 
-![logo](https://raw.githubusercontent.com/joe-crick/Reduxigen/master/reduxigen-logo.png) Reduxigen
+![logo](https://raw.githubusercontent.com/reduxigen/Reduxigen/master/reduxigen-logo.png) Reduxigen
 =======
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/joe-crick/Reduxigen.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/joe-crick/Reduxigen.svg?branch=master)](https://travis-ci.org/joe-crick/Reduxigen)
+[![Greenkeeper badge](https://badges.greenkeeper.io/reduxigen/Reduxigen.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/reduxigen/Reduxigen.svg?branch=master)](https://travis-ci.org/reduxigen/Reduxigen)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f65f8caa0d049b3bc270ae229f450f4)](https://www.codacy.com/app/joe-crick/Reduxigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=joe-crick/Reduxigen&amp;utm_campaign=Badge_Grade)
-![Current Version](https://img.shields.io/badge/version-0.0.10-green.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f65f8caa0d049b3bc270ae229f450f4)](https://www.codacy.com/app/reduxigen/Reduxigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=reduxigen/Reduxigen&amp;utm_campaign=Badge_Grade)
+![Current Version](https://img.shields.io/badge/version-0.0.11-green.svg)
 
 "[Redux] is hard... Integrating React and Redux is going to make [your] architecture more complicated." - [Brian Holt](https://github.com/btholt)
 
@@ -28,9 +28,9 @@ What is there?
 If you'd like to follow a step-by-step tutorial on getting started with Reduxigen,
 you can read this blog article: [Super Simple React/Redux Apps with Reduxigen: Step by Step](https://itnext.io/super-simple-react-redux-apps-with-reduxigen-step-by-step-16ef9b884dd3)
 
-To see an example of Reduxigen in action, you can view this [example repository](https://github.com/joe-crick/contact-manager)
+To see an example of Reduxigen in action, you can view this [example repository](https://github.com/reduxigen/contact-manager)
 
-To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
+To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://reduxigen.gitbooks.io/reduxigen/content/).
 
 ## TOC
 
@@ -132,7 +132,7 @@ Reduxigen's `connect` method will map the array of prop names you pass it to `ma
 
 ## API
 
-For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
+For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://reduxigen.gitbooks.io/reduxigen/content/).
 
 ## Other Options
 There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article](https://medium.com/@joseph0crick/redux-simplifiers-an-overview-46f4aac0908e).

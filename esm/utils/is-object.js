@@ -1,1 +1,1 @@
-export default cur => cur !== null && typeof cur === "object";
+export default cur => cur !== null && typeof cur === "object" && cur.constructor === Object;
