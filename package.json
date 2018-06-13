@@ -1,8 +1,8 @@
 {
   "name": "reduxigen",
-  "description": "Ridiculously Simple State Management with React and Redux",
+  "description": "Ridiculously Simple State Management",
   "author": "Joe Crick",
-  "version": "0.0.11",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start": "webpack -w",

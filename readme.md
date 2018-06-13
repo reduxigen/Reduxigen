@@ -7,30 +7,34 @@
 [![Build Status](https://travis-ci.org/reduxigen/Reduxigen.svg?branch=master)](https://travis-ci.org/reduxigen/Reduxigen)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f65f8caa0d049b3bc270ae229f450f4)](https://www.codacy.com/app/reduxigen/Reduxigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=reduxigen/Reduxigen&amp;utm_campaign=Badge_Grade)
-![Current Version](https://img.shields.io/badge/version-0.0.11-green.svg)
+![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
-"[Redux] is hard... Integrating React and Redux is going to make [your] architecture more complicated." - [Brian Holt](https://github.com/btholt)
+# Reduxigen
 
-Reduxigen - Making powerful state management simple.
+Reduxigen is a ridiculously simple state management system. Managing state in Reduxigen entails only two concepts:
 
-Reduxigen makes working with React and Redux ridiculously simple:
+* State
 
- * No action creators. 
- * No reducers. 
- * No `mapStateToProps`. 
- * No `mapDispatchToProps`. 
- 
-What is there? 
+* Functions
 
-* functions that update your state, and 
-* a powerful, simple `connect` method to bind React to Redux. 
+State is a plain JavaScript object.
+
+Reduxigen functions update values in the state.\*
+
+### Robust {#robust}
+
+Reduxigen is built on top of Redux. If you've used Redux, many of the concepts in Reduxigen will be very familiar. However, you'll find using Reduxigen much simpler than Redux. You'll write less code. The code you write will be predictable. This will make you more efficient, and less prone to error. At the same time, you'll get all the benefits Redux has to offer.
+
+---
+
+\* More accurately, Reduxigen functions create a new state with appropriately updated values.
 
 If you'd like to follow a step-by-step tutorial on getting started with Reduxigen,
 you can read this blog article: [Super Simple React/Redux Apps with Reduxigen: Step by Step](https://itnext.io/super-simple-react-redux-apps-with-reduxigen-step-by-step-16ef9b884dd3)
 
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/reduxigen/contact-manager)
 
-To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://reduxigen.gitbooks.io/reduxigen/content/).
+To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
 
 ## TOC
 
@@ -46,19 +50,20 @@ To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https:/
 
 ## Summary
 
-Reduxigen is a set of utilities: `actions` and `connect`. 
+The Reduxigen API exposes a set of functions. There are seven functions in two categories:
 
-#### Actions
+### Synchronous
 
-Reduxigen `actions` simplify the process of updating Redux state. They eliminate the need to write all the boilerplate of reducers and action-creators. 
+* `update`
+* `action`
+* `actionSet`
+* `genericAction`
 
-#### Connect
+### Asynchronous
 
-Reduxigen `connect` simplifies connecting state and methods to props when using `react-redux`.
-
-#### Use what you need
-
-Each utility is its own file (`reduxigen/actions` and `reduxigen/connect`). You can load only the files you need. `actions` contains Reduxigen's `central-reducer` and all `action` methods. `connect` contains the simplified `react-redux` `connect` method.
+* `asyncUpdate`
+* `asyncAction`
+* `asyncActionSet`
 
 ## Setup
 
@@ -72,7 +77,9 @@ npm i react react-dom redux react-redux
 
 If you need to have async operations in your app, also install `redux-thunk`.
 
-If your app is already configured to work with `react` and `redux`, all you have to do is install Reduxigen.
+If your app is already configured to work with `react` and `redux`, all you have to do is install Reduxigen. Reduxigen plays nicely with other Redux tools such as Redux Saga, or Redux Observable.
+
+To install Reduxigen:
 
 ```js
 npm i reduxigen
@@ -119,20 +126,20 @@ Import this action into your component, and connect it to `redux`, using Reduxig
 
 ```js
 import React from 'react';
-import * as actions from './test-actions';
-import connect from "reduxigen/connect";
+import {setTest} from './test-actions';
+import {connect} from "react-redux";
 
 export const Test = ({test, setTest}) => <button onClick={setTest}>{test}</button>;
 
-export default connect(['test'], actions)(Test);
+const mapStateToProps = state => {test: state.test}
+
+export default connect(mapStateToProps, {setTest})(Test);
 
 ```
 
-Reduxigen's `connect` method will map the array of prop names you pass it to `mapStateToProps`. It will automatically map the actions you pass it to `mapDispatchToProps`.
-
 ## API
 
-For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://reduxigen.gitbooks.io/reduxigen/content/).
+For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
 
 ## Other Options
 There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article](https://medium.com/@joseph0crick/redux-simplifiers-an-overview-46f4aac0908e).

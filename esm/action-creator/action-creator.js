@@ -144,6 +144,14 @@ export const asyncAction = (field, func, asyncOp, fetchMethod, isSet = false) =>
 };
 
 /**
+ * Given a set of functions or redux actions, runs each in the set in succession
+ * @param {Iterable} set 
+ */
+export const runSet = set => (dispatch, getState) => {
+  set.forEach(item => dispatch(typeof item === "function" ? item() : item))
+};
+
+/**
  * Runs an asynchronous action set
  * @param name
  * @param func
