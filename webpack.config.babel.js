@@ -1,6 +1,5 @@
 module.exports = {
   entry: {
-    connect: "./esm/connected/connected",
     actions: "./esm/action-creator/action-creator"
   },
   output: {

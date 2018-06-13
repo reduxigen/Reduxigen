@@ -1,4 +1,4 @@
-import set from "lodash.set";
+import setField from "lodash.set";
 
 const REDUX_INIT = "@@redux/INIT";
 const INIT = "@@INIT";
@@ -46,35 +46,16 @@ export const addReducers = reducer => {
  * @param field
  * @return {function(*=): {type: string, payload: *}}
  */
-export const update = field => input => {
+export const set = field => input => {
   const type = createActionName(field);
   const payload = getPayload(input);
   if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = (state, value) => set({ ...state }, field, value);
+    reducers[type] = (state, value) => setField({ ...state }, field, value);
   }
   return {
     type,
     payload
   };
-};
-
-/**
- * Simple async update action---state field is updated to a value
- * @param field
- * @param asyncOp
- * @param fetchMethod
- * @return {function(*=, *=): function(*)}
- */
-export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch => {
-  dispatch(isLoading(field, true));
-  dispatch(hasError(field, false));
-  return asyncOp(query)
-    .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
-    .then(data => {
-      dispatch(isLoading(field, false));
-      dispatch(update(field)(data));
-    })
-    .catch(error => dispatch(hasError(field, error)));
 };
 
 /**
@@ -84,43 +65,17 @@ export const asyncUpdate = (field, asyncOp, fetchMethod) => query => dispatch =>
  * @param isSet
  * @return {function(*=): {type: string, payload: *}}
  */
-export const action = (field, func, isSet = false) => input => {
-  const type = createActionName(field, isSet ? "ACTION_SET" : "ACTION");
+export const update = (field, func) => input => {
+  const type = createActionName(field, "UPDATE");
   const payload = getPayload(input);
   if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = isSet ? applyActionSet(func) : applyAction(field, func);
+    reducers[type] = applyUpdate(func);
   }
   return {
     type,
     payload
   };
 };
-
-/**
- * For updating multiple properties in state
- * @param name
- * @param func
- * @return {function(*=): {type: string, payload: *}}
- */
-export const actionSet = (name, func) => action(name, func, true);
-
-/**
- * For computed updates---for example, an increment
- * @param name
- * @param func
- * @return {function(*, *)}
- */
-export const genericAction = (name, func) => field => payload => {
-  const type = createActionName(field, name.toUpperCase());
-  if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = applyAction(field, func);
-  }
-  return {
-    type,
-    payload
-  };
-};
-
 /**
  * Like an action, but asynchronous
  * @param field
@@ -130,10 +85,10 @@ export const genericAction = (name, func) => field => payload => {
  * @param isSet
  * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
  */
-export const asyncAction = (field, func, asyncOp, fetchMethod, isSet = false) => query => (dispatch, getState) => {
+export const asyncUpdate = (field, func, asyncOp, fetchMethod) => query => (dispatch, getState) => {
   dispatch(isLoading(field, true));
   dispatch(hasError(field, false));
-  const actionToRun = isSet ? actionSet(field, func) : action(field, func);
+  const actionToRun = update(field, func);
   return asyncOp(query)
     .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
     .then(data => {
@@ -144,40 +99,29 @@ export const asyncAction = (field, func, asyncOp, fetchMethod, isSet = false) =>
 };
 
 /**
- * Given a set of functions or redux actions, runs each in the set in succession
- * @param {Iterable} set 
- */
-export const runSet = set => (dispatch, getState) => {
-  set.forEach(item => dispatch(typeof item === "function" ? item() : item))
-};
-
-/**
- * Runs an asynchronous action set
+ * For computed updates---for example, an increment
  * @param name
  * @param func
- * @param asyncOp
- * @param fetchMethod
- * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
+ * @return {function(*, *)}
  */
-export const asyncActionSet = (name, func, asyncOp, fetchMethod) => asyncAction(name, func, asyncOp, fetchMethod, true);
+export const action = (name, func) => field => payload => {
+  const type = createActionName(field, name.toUpperCase());
+  if (!reducers.hasOwnProperty(type)) {
+    reducers[type] = applyUpdate(field, func);
+  }
+  return {
+    type,
+    payload
+  };
+};
 
 /**
  * Merges the result of a function into the state, and returns a new, updated state.
  * @param func
  * @return {function(*=, *=): any}
  */
-function applyActionSet(func) {
+function applyUpdate(func) {
   return (state, value) => Object.assign({}, state, func(value, state));
-}
-
-/**
- * Applies an action to a state update
- * @param field
- * @param func
- * @return {function(*, *=): Object}
- */
-function applyAction(field, func) {
-  return (state, value) => set({ ...state }, field, func(value, state));
 }
 
 /**
@@ -226,7 +170,7 @@ function createActionName(field, prefix = "SET") {
  * @return {{type: string, payload: *}}
  */
 function isLoading(field, hasLoaded) {
-  return update(`${field}_loading`)(hasLoaded);
+  return set(`${field}_loading`)(hasLoaded);
 }
 
 /**
@@ -236,5 +180,5 @@ function isLoading(field, hasLoaded) {
  * @return {{type: string, payload: *}}
  */
 function hasError(field, isError) {
-  return update(`${field}_error`)(isError);
+  return set(`${field}_error`)(isError);
 }

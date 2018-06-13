@@ -1,1 +1,0 @@
-export default cur => cur !== null && typeof cur === "object" && cur.constructor === Object;

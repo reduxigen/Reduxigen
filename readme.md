@@ -50,20 +50,14 @@ To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https:/
 
 ## Summary
 
-The Reduxigen API exposes a set of functions. There are seven functions in two categories:
+The Reduxigen API exposes a set of functions. There are four functions:
 
 ### Synchronous
 
 * `update`
-* `action`
-* `actionSet`
-* `genericAction`
-
-### Asynchronous
-
 * `asyncUpdate`
-* `asyncAction`
-* `asyncActionSet`
+* `action`
+* `set`
 
 ## Setup
 
@@ -114,15 +108,15 @@ export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
 ### Create Actions
 
 ```js
-import { update } from 'reduxigen/actions';
+import { set } from 'reduxigen/actions';
 
 // Note that the value "test" corresponds to the "test" field in the state object.
-export const setTest = update("test");
+export const setTest = set("test");
 
 ```
 ### Connect actions to your component
 
-Import this action into your component, and connect it to `redux`, using Reduxigen's `connect` method, which simplifies mapping props and dispatch to state.
+Import this action into your component, and connect it.
 
 ```js
 import React from 'react';
@@ -140,6 +134,3 @@ export default connect(mapStateToProps, {setTest})(Test);
 ## API
 
 For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
-
-## Other Options
-There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article](https://medium.com/@joseph0crick/redux-simplifiers-an-overview-46f4aac0908e).
