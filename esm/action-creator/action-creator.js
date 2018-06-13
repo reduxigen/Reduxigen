@@ -1,43 +1,91 @@
-import setField from "lodash.set";
+"use strict";
 
-const REDUX_INIT = "@@redux/INIT";
-const INIT = "@@INIT";
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.action = exports.asyncUpdate = exports.update = exports.set = exports.addReducers = exports.rootReducer = exports.reducers = undefined;
 
-const identity = self => self;
-
-export const reducers = {
-  [REDUX_INIT]: identity,
-  [INIT]: identity
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+  return target;
 };
 
-let _externalReducers = [];
+var _reducers;
+
+var _lodash = require("lodash.set");
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    default: obj
+  };
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+
+var REDUX_INIT = "@@redux/INIT";
+var INIT = "@@INIT";
+
+var identity = function identity(self) {
+  return self;
+};
+
+var reducers = exports.reducers = (_reducers = {}, _defineProperty(_reducers, REDUX_INIT, identity), _defineProperty(_reducers, INIT, identity), _reducers);
+
+var _externalReducers = [];
 
 /**
  * Reduxigen's Central Reducer
  * @param defaultState
  * @return {Function}
  */
-export const rootReducer = defaultState => (state = defaultState, action) => {
-  const { type, payload } = action;
-  let newState = {};
-  const foundReducer = _externalReducers.some(reducer => {
-    newState = reducer(state, action);
-    return state !== newState;
-  });
-  if (foundReducer) {
-    return newState;
-  } else if (reducers.hasOwnProperty(type)) {
-    return reducers[type](state, payload);
-  } else {
-    return state;
-  }
+var rootReducer = exports.rootReducer = function rootReducer(defaultState) {
+  return function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultState;
+    var action = arguments[1];
+    var type = action.type,
+      payload = action.payload;
+
+    var newState = {};
+    var foundReducer = _externalReducers.some(function (reducer) {
+      newState = reducer(state, action);
+      return state !== newState;
+    });
+    if (foundReducer) {
+      return newState;
+    } else if (reducers.hasOwnProperty(type)) {
+      return reducers[type](state, payload);
+    } else {
+      return state;
+    }
+  };
 };
 
 /**
  * Allows external reducers to be combined with Reduxigen's Central Reducer
  * @param {Array} reducer
  */
-export const addReducers = reducer => {
+var addReducers = exports.addReducers = function addReducers(reducer) {
   _externalReducers = _externalReducers.concat(reducer);
 };
 
@@ -46,15 +94,19 @@ export const addReducers = reducer => {
  * @param field
  * @return {function(*=): {type: string, payload: *}}
  */
-export const set = field => input => {
-  const type = createActionName(field);
-  const payload = getPayload(input);
-  if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = (state, value) => setField({ ...state }, field, value);
-  }
-  return {
-    type,
-    payload
+var set = exports.set = function set(field) {
+  return function (input) {
+    var type = createActionName(field);
+    var payload = getPayload(input);
+    if (!reducers.hasOwnProperty(type)) {
+      reducers[type] = function (state, value) {
+        return (0, _lodash2.default)(_extends({}, state), field, value);
+      };
+    }
+    return {
+      type: type,
+      payload: payload
+    };
   };
 };
 
@@ -65,15 +117,17 @@ export const set = field => input => {
  * @param isSet
  * @return {function(*=): {type: string, payload: *}}
  */
-export const update = (field, func) => input => {
-  const type = createActionName(field, "UPDATE");
-  const payload = getPayload(input);
-  if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = applyUpdate(func);
-  }
-  return {
-    type,
-    payload
+var update = exports.update = function update(field, func) {
+  return function (input) {
+    var type = createActionName(field, "UPDATE");
+    var payload = getPayload(input);
+    if (!reducers.hasOwnProperty(type)) {
+      reducers[type] = applyUpdate(func);
+    }
+    return {
+      type: type,
+      payload: payload
+    };
   };
 };
 /**
@@ -85,17 +139,22 @@ export const update = (field, func) => input => {
  * @param isSet
  * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
  */
-export const asyncUpdate = (field, func, asyncOp, fetchMethod) => query => (dispatch, getState) => {
-  dispatch(isLoading(field, true));
-  dispatch(hasError(field, false));
-  const actionToRun = update(field, func);
-  return asyncOp(query)
-    .then(data => (isFetch(fetchMethod, data) ? data[fetchMethod]() : data))
-    .then(data => {
-      dispatch(isLoading(field, false));
-      dispatch(actionToRun(data));
-    })
-    .catch(error => dispatch(hasError(field, error)));
+var asyncUpdate = exports.asyncUpdate = function asyncUpdate(field, func, asyncOp, fetchMethod) {
+  return function (query) {
+    return function (dispatch, getState) {
+      dispatch(isLoading(field, true));
+      dispatch(hasError(field, false));
+      var actionToRun = update(field, func);
+      return asyncOp(query).then(function (data) {
+        return isFetch(fetchMethod, data) ? data[fetchMethod]() : data;
+      }).then(function (data) {
+        dispatch(isLoading(field, false));
+        dispatch(actionToRun(data));
+      }).catch(function (error) {
+        return dispatch(hasError(field, error));
+      });
+    };
+  };
 };
 
 /**
@@ -104,14 +163,18 @@ export const asyncUpdate = (field, func, asyncOp, fetchMethod) => query => (disp
  * @param func
  * @return {function(*, *)}
  */
-export const action = (name, func) => field => payload => {
-  const type = createActionName(field, name.toUpperCase());
-  if (!reducers.hasOwnProperty(type)) {
-    reducers[type] = applyUpdate(field, func);
-  }
-  return {
-    type,
-    payload
+var action = exports.action = function action(name, func) {
+  return function (field) {
+    return function (payload) {
+      var type = createActionName(field, name.toUpperCase());
+      if (!reducers.hasOwnProperty(type)) {
+        reducers[type] = applyUpdate(field, func);
+      }
+      return {
+        type: type,
+        payload: payload
+      };
+    };
   };
 };
 
@@ -121,7 +184,9 @@ export const action = (name, func) => field => payload => {
  * @return {function(*=, *=): any}
  */
 function applyUpdate(func) {
-  return (state, value) => Object.assign({}, state, func(value, state));
+  return function (state, value) {
+    return Object.assign({}, state, func(value, state));
+  };
 }
 
 /**
@@ -159,8 +224,10 @@ function isFetch(fetchMethod, data) {
  * @param prefix
  * @return {string}
  */
-function createActionName(field, prefix = "SET") {
-  return `${prefix}_${field.toUpperCase()}`;
+function createActionName(field) {
+  var prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "SET";
+
+  return prefix + "_" + field.toUpperCase();
 }
 
 /**
@@ -170,7 +237,7 @@ function createActionName(field, prefix = "SET") {
  * @return {{type: string, payload: *}}
  */
 function isLoading(field, hasLoaded) {
-  return set(`${field}_loading`)(hasLoaded);
+  return set(field + "_loading")(hasLoaded);
 }
 
 /**
@@ -180,5 +247,5 @@ function isLoading(field, hasLoaded) {
  * @return {{type: string, payload: *}}
  */
 function hasError(field, isError) {
-  return set(`${field}_error`)(isError);
+  return set(field + "_error")(isError);
 }
