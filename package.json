@@ -5,40 +5,22 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "webpack -w",
-    "build": "webpack -p",
-    "dev-build": "webpack -d",
     "test": "jest",
+    "test-watch": "jest --watch",
     "prepare": "npm build && npm test"
   },
   "dependencies": {
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2",
-    "react-redux": "^5.0.7"
+    "lodash.set": "^4.3.2"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-jest": "^22.4.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.4.3",
     "prettier": "^1.12.1",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
     "redux": "^4.0.0",
-    "redux-mock-store": "^1.5.1",
     "redux-thunk": "^2.2.0"
   },
   "keywords": [
-    "react",
-    "react-redux",
     "redux",
-    "redux-thunk"
+    "redux-thunk",
+    "state-management"
   ]
 }

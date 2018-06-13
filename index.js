@@ -3,6 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function isObject(value) {
+  const type = typeof value
+  return value != null && (type == 'object' || type == 'function')
+}
+
+function id(data) {
+  return data;
+}
+
 exports.action = exports.asyncUpdate = exports.update = exports.set = exports.addReducers = exports.rootReducer = exports.reducers = undefined;
 
 var _extends = Object.assign || function (target) {
@@ -133,20 +143,26 @@ var update = exports.update = function update(field, func) {
 /**
  * Like an action, but asynchronous
  * @param field
- * @param func
  * @param asyncOp
- * @param fetchMethod
+ * @param func - defaults to the id function
+ * @param fetchMethod - defaults to "json"
  * @param isSet
  * @return {function(*=): function(*, *): (Promise|*|Promise<T>)}
  */
-var asyncUpdate = exports.asyncUpdate = function asyncUpdate(field, func, asyncOp, fetchMethod) {
+var asyncUpdate = exports.asyncUpdate = function asyncUpdate(field, asyncOp, func, fetchMethod) {
+  if (!fetchMethod) {
+    fetchMethod = "json";
+  }
+  if (!func) {
+    func = id;
+  }
   return function (query) {
     return function (dispatch, getState) {
       dispatch(isLoading(field, true));
       dispatch(hasError(field, false));
       var actionToRun = update(field, func);
       return asyncOp(query).then(function (data) {
-        return isFetch(fetchMethod, data) ? data[fetchMethod]() : data;
+        return isFetch(data) ? data[fetchMethod]() : data;
       }).then(function (data) {
         dispatch(isLoading(field, false));
         dispatch(actionToRun(data));
@@ -208,14 +224,16 @@ function isEventObject(payload) {
 }
 
 /**
- * Determine whether or not the asyncOp is a fetch, based on whether or not the fetch data access
- * method passed in exists---and, if so, if it is a function.
+ * Determine whether or not the asyncOp is a fetch, based on whether or not the 
+ * method is native code---fetch is native code---it has no prototype (fetch doesn't
+ * XmlHttpRequest does), the data access method passed in exists---and, if so, 
+ * if the data access method is a function.
  * @param fetchMethod
  * @param data
  * @return {boolean}
  */
-function isFetch(fetchMethod, data) {
-  return fetchMethod && data && fetchMethod in data && typeof data[fetchMethod] === "function";
+function isFetch(data) {
+  return data && isObject(data) && data instanceof Response && 'json' in data;
 }
 
 /**

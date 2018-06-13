@@ -21,6 +21,8 @@ State is a plain JavaScript object.
 
 Reduxigen functions update values in the state.\*
 
+Reduxigen is also ridiculously small. It's only ~250 loc.--2.1 kb compressed.
+
 ### Robust {#robust}
 
 Reduxigen is built on top of Redux. If you've used Redux, many of the concepts in Reduxigen will be very familiar. However, you'll find using Reduxigen much simpler than Redux. You'll write less code. The code you write will be predictable. This will make you more efficient, and less prone to error. At the same time, you'll get all the benefits Redux has to offer.
