@@ -6,7 +6,6 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/reduxigen/Reduxigen.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/reduxigen/Reduxigen.svg?branch=master)](https://travis-ci.org/reduxigen/Reduxigen)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f65f8caa0d049b3bc270ae229f450f4)](https://www.codacy.com/app/reduxigen/Reduxigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=reduxigen/Reduxigen&amp;utm_campaign=Badge_Grade)
 ![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 # Reduxigen
@@ -21,7 +20,9 @@ State is a plain JavaScript object.
 
 Reduxigen functions update values in the state.\*
 
-### Robust {#robust}
+Reduxigen is also ridiculously small. It's only ~250 loc.--2.1 kb compressed.
+
+### Robust
 
 Reduxigen is built on top of Redux. If you've used Redux, many of the concepts in Reduxigen will be very familiar. However, you'll find using Reduxigen much simpler than Redux. You'll write less code. The code you write will be predictable. This will make you more efficient, and less prone to error. At the same time, you'll get all the benefits Redux has to offer.
 
@@ -50,20 +51,14 @@ To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https:/
 
 ## Summary
 
-The Reduxigen API exposes a set of functions. There are seven functions in two categories:
+The Reduxigen API exposes a set of functions. There are four functions:
 
 ### Synchronous
 
 * `update`
-* `action`
-* `actionSet`
-* `genericAction`
-
-### Asynchronous
-
 * `asyncUpdate`
-* `asyncAction`
-* `asyncActionSet`
+* `action`
+* `set`
 
 ## Setup
 
@@ -114,15 +109,15 @@ export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
 ### Create Actions
 
 ```js
-import { update } from 'reduxigen/actions';
+import { set } from 'reduxigen/actions';
 
 // Note that the value "test" corresponds to the "test" field in the state object.
-export const setTest = update("test");
+export const setTest = set("test");
 
 ```
 ### Connect actions to your component
 
-Import this action into your component, and connect it to `redux`, using Reduxigen's `connect` method, which simplifies mapping props and dispatch to state.
+Import this action into your component, and connect it.
 
 ```js
 import React from 'react';
@@ -140,6 +135,3 @@ export default connect(mapStateToProps, {setTest})(Test);
 ## API
 
 For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
-
-## Other Options
-There are several libraries out there that work to simplify Redux. For more information on these options, please see the following [Blog Article](https://medium.com/@joseph0crick/redux-simplifiers-an-overview-46f4aac0908e).
