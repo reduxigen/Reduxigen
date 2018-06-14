@@ -30,9 +30,6 @@ Reduxigen is built on top of Redux. If you've used Redux, many of the concepts i
 
 \* More accurately, Reduxigen functions create a new state with appropriately updated values.
 
-If you'd like to follow a step-by-step tutorial on getting started with Reduxigen,
-you can read this blog article: [Super Simple React/Redux Apps with Reduxigen: Step by Step](https://itnext.io/super-simple-react-redux-apps-with-reduxigen-step-by-step-16ef9b884dd3)
-
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/reduxigen/contact-manager)
 
 To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
@@ -52,8 +49,6 @@ To read about Reduxigen in depth, please consult the [Reduxigen GitBook](https:/
 ## Summary
 
 The Reduxigen API exposes a set of functions. There are four functions:
-
-### Synchronous
 
 * `update`
 * `asyncUpdate`
