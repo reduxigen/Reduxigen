@@ -6,7 +6,6 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/reduxigen/Reduxigen.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/reduxigen/Reduxigen.svg?branch=master)](https://travis-ci.org/reduxigen/Reduxigen)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f65f8caa0d049b3bc270ae229f450f4)](https://www.codacy.com/app/reduxigen/Reduxigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=reduxigen/Reduxigen&amp;utm_campaign=Badge_Grade)
 ![Current Version](https://img.shields.io/badge/version-2.0.0-green.svg)
 
 # Reduxigen
