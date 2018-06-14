@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/reduxigen/Reduxigen.svg?branch=master)](https://travis-ci.org/reduxigen/Reduxigen)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2f65f8caa0d049b3bc270ae229f450f4)](https://www.codacy.com/app/reduxigen/Reduxigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=reduxigen/Reduxigen&amp;utm_campaign=Badge_Grade)
-![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Current Version](https://img.shields.io/badge/version-2.0.0-green.svg)
 
 # Reduxigen
 
@@ -30,9 +30,6 @@ Reduxigen is built on top of Redux. If you've used Redux, many of the concepts i
 ---
 
 \* More accurately, Reduxigen functions create a new state with appropriately updated values.
-
-If you'd like to follow a step-by-step tutorial on getting started with Reduxigen,
-you can read this blog article: [Super Simple React/Redux Apps with Reduxigen: Step by Step](https://itnext.io/super-simple-react-redux-apps-with-reduxigen-step-by-step-16ef9b884dd3)
 
 To see an example of Reduxigen in action, you can view this [example repository](https://github.com/reduxigen/contact-manager)
 
@@ -101,7 +98,7 @@ export default {
 ```js
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk"; // If you're using thunks
-import { rootReducer } from "reduxigen/actions";
+import { rootReducer } from "reduxigen";
 import DEFAULT from "state";
 
 export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
@@ -110,7 +107,7 @@ export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
 ### Create Actions
 
 ```js
-import { set } from 'reduxigen/actions';
+import { set } from 'reduxigen';
 
 // Note that the value "test" corresponds to the "test" field in the state object.
 export const setTest = set("test");
@@ -135,4 +132,4 @@ export default connect(mapStateToProps, {setTest})(Test);
 
 ## API
 
-For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/content/).
+For full details on the Reduxigen API, please consult the [Reduxigen GitBook](https://joe-crick.gitbooks.io/reduxigen/).
