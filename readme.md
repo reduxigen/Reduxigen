@@ -6,7 +6,7 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/reduxigen/Reduxigen.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/reduxigen/Reduxigen.svg?branch=master)](https://travis-ci.org/reduxigen/Reduxigen)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-![Current Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+![Current Version](https://img.shields.io/badge/version-2.0.2-green.svg)
 
 # Reduxigen
 
@@ -100,7 +100,7 @@ export default {
 ```js
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk"; // If you're using thunks
-import { rootReducer } from "reduxigen/actions";
+import { rootReducer } from "reduxigen";
 import DEFAULT from "state";
 
 export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
@@ -109,7 +109,7 @@ export default createStore(rootReducer(DEFAULT), applyMiddleware(thunk));
 ### Create Actions
 
 ```js
-import { set } from 'reduxigen/actions';
+import { set } from 'reduxigen';
 
 // Note that the value "test" corresponds to the "test" field in the state object.
 export const setTest = set("test");

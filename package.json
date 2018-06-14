@@ -2,7 +2,7 @@
   "name": "reduxigen",
   "description": "Ridiculously Simple State Management",
   "author": "Joe Crick",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "license": "MIT",
   "scripts": {
     "test": "jest",
