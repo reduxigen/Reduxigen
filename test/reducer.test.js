@@ -25,9 +25,10 @@ describe("reducers", function () {
   it("should be able to integrate external reducers", function () {
     var expected = 1;
     var mock = jest.fn();
+    var ADD_TEST = "ADD_TEST";
     var mockReducer = function mockReducer(state, action) {
       switch (action.type) {
-        case "ADD_TEST":
+        case ADD_TEST:
           mock();
           return _extends({}, state, { test: 1 });
         default:
